@@ -8,6 +8,12 @@ import { BadgeComponent } from './badge/badge.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
+import {MembersComponent} from "./members/members.component";
+import {MemberFormComponent} from "./member-form/member-form.component";
+import {EvenementsComponent} from "./evenements/evenements.component";
+import {PublicationFormComponent} from "./publication-form/publication-form.component";
+import {PublicationsComponent} from "./publications/publications.component";
+import {EvenementFormComponent} from "./evenement-form/evenement-form.component";
 
 
 export const ComponentsRoutes: Routes = [
@@ -45,7 +51,32 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'buttons',
 				component: ButtonsComponent
-			}
+			},
+      {
+        path: 'members',
+        component: MembersComponent
+      },
+      {
+        path: 'member-form',
+        component: MemberFormComponent
+      },
+      {
+        path: 'evenements',
+        component: EvenementsComponent
+      },
+      {
+        path: 'evenement-form',
+        component: EvenementFormComponent
+      },
+      {
+        path: 'publication-form',
+        component: PublicationFormComponent
+      }
+      ,
+      {
+        path: 'publications',
+        component: PublicationsComponent
+      }
 		]
 	}
 ];

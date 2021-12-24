@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ample-admin-angular": {
+    "Laboratoire-Universitaire": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ample-admin-angular",
+            "outputPath": "dist/Laboratoire-Universitaire",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -32,9 +35,16 @@
             ],
             "styles": [
               "src/assets/scss/style.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/datatables.net-dt/css/jquery.dataTables.min.css",
+              "node_modules/select2/dist/css/select2.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/select2/dist/js/select2.min.js",
+              "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -73,10 +83,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "ample-admin-angular:build:production"
+              "browserTarget": "Laboratoire-Universitaire:build:production"
             },
             "development": {
-              "browserTarget": "ample-admin-angular:build:development"
+              "browserTarget": "Laboratoire-Universitaire:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +94,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ample-admin-angular:build"
+            "browserTarget": "Laboratoire-Universitaire:build"
           }
         },
         "test": {
@@ -108,5 +118,5 @@
       }
     }
   },
-  "defaultProject": "ample-admin-angular"
+  "defaultProject": "Laboratoire-Universitaire"
 }
