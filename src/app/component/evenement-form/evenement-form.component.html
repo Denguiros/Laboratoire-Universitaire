@@ -1,1 +1,36 @@
-<p>evenement-form works!</p>
+<div class="row">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="p-3">
+        <h4 class="card-title mb-0">Evenement Management</h4>
+      </div>
+      <div class="card-body border-top">
+        <form  class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row vertical-gap">
+            <div class="col-md-4">
+              <label for="titre" class="control-label">Titre</label>
+              <input id="titre" class="form-control" formControlName="titre"/>
+              <span  class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+              <label for="lieu" class="control-label">Lieu</label>
+              <input id="lieu" class="form-control" formControlName="lieu"/>
+              <span  class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+              <label  for="date" class="control-label">Date</label>
+              <input id="date" formControlName="date" type="date" class="form-control"/>
+              <span class="text-danger"></span>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 2rem">
+            <input type="submit" value="Add" class="btn btn-primary"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

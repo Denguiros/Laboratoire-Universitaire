@@ -10,7 +10,7 @@ describe('EvenementFormComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ EvenementFormComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
