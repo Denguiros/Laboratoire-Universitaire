@@ -28,6 +28,11 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { EvenementFormComponent } from './evenement-form/evenement-form.component';
 import { OutilsComponent } from './outils/outils.component';
 import { OutilFormComponent } from './outil-form/outil-form.component';
+import { ProfileComponent } from './profile/profile.component';
+import { MemberEditComponent } from './member-edit/member-edit.component';
+import { MemberShowComponent } from './member-show/member-show.component';
+
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -61,7 +66,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PublicationFormComponent,
     EvenementFormComponent,
     OutilsComponent,
-    OutilFormComponent
+    OutilFormComponent,
+    ProfileComponent,
+
+    MemberEditComponent,
+    MemberShowComponent
   ]
 })
 export class ComponentsModule { }

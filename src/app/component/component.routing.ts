@@ -1,3 +1,5 @@
+import { MemberEditComponent } from './member-edit/member-edit.component';
+
 import { Routes } from '@angular/router';
 import { NgbdpaginationBasicComponent } from './pagination/pagination.component';
 import { NgbdAlertBasicComponent } from './alert/alert.component';
@@ -14,6 +16,8 @@ import {EvenementsComponent} from "./evenements/evenements.component";
 import {PublicationFormComponent} from "./publication-form/publication-form.component";
 import {PublicationsComponent} from "./publications/publications.component";
 import {EvenementFormComponent} from "./evenement-form/evenement-form.component";
+import { ProfileComponent } from './profile/profile.component';
+import { MemberShowComponent } from './member-show/member-show.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -76,7 +80,19 @@ export const ComponentsRoutes: Routes = [
       {
         path: 'publications',
         component: PublicationsComponent
-      }
+      },
+	    {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
+        path: 'member-show',
+        component: MemberShowComponent
+      },
+      {
+        path: 'member-edit',
+        component: MemberEditComponent
+      },
 		]
 	}
 ];
