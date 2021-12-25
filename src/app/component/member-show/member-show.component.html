@@ -14,11 +14,11 @@
                 <div class="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                   <div class="mt-3">
-                    <h4>John Doe</h4>
-                    <p class="text-secondary mb-1">Full Stack Developer</p>
-                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                    <button class="btn btn-primary">Delete</button>
-                    <button class="btn btn-outline-primary" routerLink="/component/member-edit">Edit</button>
+                    <h4>{{ Member.nom }} {{ Member.prenom }}</h4>
+                    <p class="text-secondary mb-1">{{ Member.type }}</p>
+                    <p class="text-muted font-size-sm">{{ Member.etablissement }}</p>
+                    <button class="btn btn-primary">cv</button>
+                    <!--<button class="btn btn-outline-primary" routerLink="/component/member-edit">Edit</button>-->
                   </div>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                     <h6 class="mb-0">Full Name</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    Kenneth Valdez
+                    {{ Member.nom }} {{ Member.prenom }}
                   </div>
                 </div>
                 <hr>
@@ -42,34 +42,52 @@
                     <h6 class="mb-0">Email</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    fip@jukmuh.al
+                    {{ Member.email }}
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">Phone</h6>
+                    <h6 class="mb-0">cin</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    (239) 816-9029
+                    {{ Member.cin }}
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">Mobile</h6>
+                    <h6 class="mb-0">date</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    (320) 380-4539
+                    {{ Member.date }}
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">Address</h6>
+                    <h6 class="mb-0">diplome</h6>
                   </div>
                   <div class="col-sm-9 text-secondary">
-                    Bay Area, San Francisco, CA
+                    {{ Member.diplome }}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">encadreur</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{ Member.encadreur }}
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">grade</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">
+                    {{ Member.grade }}
                   </div>
                 </div>
                 <hr>
