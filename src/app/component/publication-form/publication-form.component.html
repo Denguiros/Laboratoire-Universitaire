@@ -8,8 +8,10 @@
         <h4 class="card-title mb-0">Publication Management</h4>
       </div>
       <div class="card-body border-top">
-        <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="htmlContent"></angular-editor>
+        <angular-editor id="editor" (ngModelChange)="onChange($event)" [config]="config"[placeholder]="'Enter text here...'" (blur)="onBlur($event)" [(ngModel)]="htmlContent"></angular-editor>
       </div>
+      <p ng-bind-html="htmlContent">HTML Output:  {{ htmlContent}}</p>
+      <p ng-bind-html="htmlContent"></p>
     </div>
   </div>
 </div>

@@ -55,13 +55,9 @@
       <span class="ms-2">Steve Jobs</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
-      <a class="dropdown-item" href="javascript:void(0)"> My Profile</a>
-      <a class="dropdown-item" href="javascript:void(0)"> My Balance</a>
-      <a class="dropdown-item" href="javascript:void(0)"> Inbox</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Account Setting</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)" (click)="loggout()" > Logout</a>
+      <a class="dropdown-item" routerLink="/component/profile"> My Profile</a>
+
+      <a class="dropdown-item"  (click)="loggout()" > Logout</a>
     </div>
   </li>
   <!-- ============================================================== -->
