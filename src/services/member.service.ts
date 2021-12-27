@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Member} from "../models/member.model";
 
@@ -11,35 +11,44 @@ export class MemberService {
   constructor(private httpClient: HttpClient) {
   }
 
-  saveMember(member: Member, type: string): Promise<Member> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-      })
-    };
-    if (type.valueOf() === "Enseignant") {
-      return this.httpClient.post<Member>('http://localhost:9000/MEMBRE-SERVICE/membres/enseignant', member,httpOptions).toPromise();
+  saveMember(member: Member): Promise<Member> {
+    if (member.type.valueOf() === "Enseignant") {
+      return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant', member).toPromise();
     }
-      return this.httpClient.post<Member>('http://localhost:9000/MEMBRE-SERVICE/membres/etudiant', member,httpOptions).toPromise();
+      return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
+
+  }
+  updateMember(member: Member): Promise<Member> {
+    if (member.type.valueOf() === "Enseignant") {
+      return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/'+member.id, member).toPromise();
+    }
+    return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/'+member.id, member).toPromise();
 
   }
 
   getMemeberById(id: string): Promise<Member> {
     return this.httpClient
-      .get<Member>('http://localhost:9000/MEMBRE-SERVICE/membre/' + id)
+      .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/' + id)
       .toPromise();
   }
 
   deleteMemberById(id: string): Promise<void> {
-    // return this.httpClient.delete<void>('LinkToRestAPI').toPromise();
-    this.tab = this.tab.filter((member) => member.id !== id);
-    return new Promise((resolve) => resolve());
+     return this.httpClient.delete<void>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id).toPromise();
   }
 
   getAllMemebers(): Promise<Member[]> {
 
     return this.httpClient
-      .get<Member[]>('http://localhost:9000/MEMBRE-SERVICE/membres')
+      .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/membres')
+      .toPromise();
+  }
+
+  getMemeberByEmail(email: string) {
+    const params = new HttpParams().set("email",email);
+    return this.httpClient
+      .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/search/email',{
+        params
+      })
       .toPromise();
   }
 }

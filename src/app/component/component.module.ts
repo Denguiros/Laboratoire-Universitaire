@@ -4,14 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentsRoutes } from './component.routing';
-import { NgbdpaginationBasicComponent } from './pagination/pagination.component';
-import { NgbdAlertBasicComponent } from './alert/alert.component';
-import { NgbdDropdownBasicComponent } from './dropdown-collapse/dropdown-collapse.component';
-import { NgbdnavBasicComponent } from './nav/nav.component';
-import { ButtonsComponent } from './buttons/buttons.component';
-import { CardsComponent } from './card/card.component';
-import { TableComponent } from "./table/table.component";
 import { MembersComponent } from './members/members.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {DataTablesModule} from "angular-datatables";
 import { MemberFormComponent } from './member-form/member-form.component';
 import { EvenementsComponent } from './evenements/evenements.component';
@@ -28,7 +22,6 @@ import { EvenementFormComponent } from './evenement-form/evenement-form.componen
 import { OutilsComponent } from './outils/outils.component';
 import { OutilFormComponent } from './outil-form/outil-form.component';
 import { ProfileComponent } from './profile/profile.component';
-import { MemberEditComponent } from './member-edit/member-edit.component';
 import { MemberShowComponent } from './member-show/member-show.component';
 
 
@@ -49,15 +42,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DataTablesModule,
     AngularEditorModule,
     HttpClientModule,
+    SweetAlert2Module.forRoot(),
   ],
   declarations: [
-    NgbdpaginationBasicComponent,
-    NgbdAlertBasicComponent,
-    NgbdDropdownBasicComponent,
-    NgbdnavBasicComponent,
-    ButtonsComponent,
-    CardsComponent,
-    TableComponent,
     MembersComponent,
     MemberFormComponent,
     EvenementsComponent,
@@ -67,8 +54,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OutilsComponent,
     OutilFormComponent,
     ProfileComponent,
-
-    MemberEditComponent,
     MemberShowComponent
   ],
 

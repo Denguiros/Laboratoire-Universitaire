@@ -17,11 +17,6 @@ export const Approutes: Routes = [
         canActivate:[AuthService]
       },
       {
-        path: 'about',
-        loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
-        canActivate:[AuthService]
-      },
-      {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
       }

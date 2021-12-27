@@ -11,7 +11,7 @@
         <button class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/member-form">Ajouter Membre</button>
       </div>
       <div class="card-body border-top">
-        <table datatable class="row-border hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
           <thead>
           <tr>
             <th>ID</th>
@@ -22,19 +22,19 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
+          <tr *ngFor="let member of members">
+            <td>{{member.id}}</td>
             <td>
               <div class="d-flex align-items-center">
                 <img src="assets/images/users/user1.jpg" alt="user" width="45" class="rounded-circle">
                 <div class="ms-3">
-                  <h5 class="mb-0 font-medium">Test</h5>
-                  <span class="text-muted">Test@gmail.com</span>
+                  <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
+                  <span class="text-muted">{{member.email}}</span>
                 </div>
               </div>
             </td>
-            <td>Foo</td>
-            <td>Bar</td>
+            <td>{{member.prenom}}</td>
+            <td>{{member.nom}}</td>
             <td><div class="btn-group" ngbDropdown>
               <button type="button" class="btn btn-primary
                 dropdown-toggle-icon-none
@@ -49,10 +49,18 @@
 
               <ul ngbDropdownMenu aria-labelledby="dropdown1">
                 <li>
-                  <a class="dropdown-item text-black btn-labeled"  routerLink="/component/member-show" ><span class="btn-label"><i class="fa fa-eye"></i></span> Show</a></li>
-                <li><a class="dropdown-item text-black" routerLink="/component/member-edit"><span class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                  <a class="dropdown-item text-black btn-labeled"  routerLink="/component/member-show/{{member.id}}" ><span class="btn-label"><i class="fa fa-eye"></i></span> Show</a></li>
+                <li><a class="dropdown-item text-black" routerLink="/component/member-form/{{member.id}}/edit"><span class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
+                <li><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
+                  text: 'You will not be able to revert this!',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, delete it!',
+                  reverseButtons: true,
+                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
+                       (confirm)="onRemove(member.id)"
+                ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
               </ul>
             </div></td>
           </tr>

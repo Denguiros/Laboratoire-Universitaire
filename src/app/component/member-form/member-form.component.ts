@@ -11,10 +11,20 @@ import {Select2OptionData} from "ng-select2";
   styleUrls: ['./member-form.component.scss'],
 })
 export class MemberFormComponent implements OnInit {
-  form: any;
+  form: FormGroup = new FormGroup({
+    cin: new FormControl("", [Validators.required]),
+    nom: new FormControl("", [Validators.required]),
+    prenom: new FormControl("", [Validators.required]),
+    email: new FormControl("", [Validators.required]),
+    date: new FormControl("", [Validators.required]),
+    type: new FormControl("", [Validators.required]),
+    grade: new FormControl("", [Validators.required]),
+    etablissement: new FormControl("", [Validators.required]),
+    diplome: new FormControl("", [Validators.required]),
+  });
   currentId: string = '';
   memberReceivedByService: any;
-
+  fromType = "Add";
   constructor(
     private memberService: MemberService,
     private router: Router,
@@ -24,19 +34,27 @@ export class MemberFormComponent implements OnInit {
 
   ngOnInit(): void {
     $("#type").select2({
-      theme:"classic",
+      theme: "classic",
       placeholder: "Select a type"
     });
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.memberService.getMemeberById(this.currentId).then((member) => {
-        this.memberReceivedByService = member;
-        console.log('Found member');
-        console.log(member);
-        this.initForm(member);
+
+        if (member.id != null) {
+          this.fromType = "Update";
+          this.memberReceivedByService = member;
+          this.form.patchValue(member);
+          if (member.grade != null) {
+            $("#type").val("Enseignant");
+          } else {
+            $("#type").val("Etudiant");
+          }
+          $("#type").trigger("change");
+        } else {
+          this.router.navigate(["/component/members"])
+        }
       });
-    } else {
-      this.initForm(null);
     }
   }
 
@@ -46,24 +64,15 @@ export class MemberFormComponent implements OnInit {
       ...this.form.value,
     };
     memberToSave.type = $('#type').select2('data')[0].id;
-    console.log(memberToSave);
+    memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
+    if(memberToSave.id != null)
+    {
+      this.memberService.updateMember(memberToSave).then(() => this.router.navigate(['/component/members']));
+    }
     this.memberService
-      .saveMember(memberToSave,memberToSave.type)
-      .then(() => this.router.navigate(['./members']));
+      .saveMember(memberToSave)
+      .then(() => this.router.navigate(['/component/members']));
   }
 
-  initForm(member: Member | null): void {
-    this.form = new FormGroup({
-      cin: new FormControl(member?.cin, [Validators.required]),
-      nom: new FormControl(member?.nom, [Validators.required]),
-      prenom: new FormControl(member?.prenom, [Validators.required]),
-      email: new FormControl(member?.email, [Validators.required]),
-      dateNaissance: new FormControl(member?.date, [Validators.required]),
-      type: new FormControl(member?.type, [Validators.required]),
-      grade: new FormControl(member?.grade, [Validators.required]),
-      etablissement: new FormControl(member?.etablissement, [Validators.required]),
-      diplome: new FormControl(member?.diplome, [Validators.required]),
-    });
-  }
 }
 

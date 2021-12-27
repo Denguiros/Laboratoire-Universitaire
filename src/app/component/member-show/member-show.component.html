@@ -1,11 +1,8 @@
 <div class="row">
   <div class="col-lg-12">
-    <!-- ==================================-->
-    <!-- ========== Basic Alert ========== -->
-    <!-- ==================================-->
     <div class="card w-100">
       <div class="p-3">
-        <h4 class="card-title mb-0">Membre Show</h4>
+        <h4 class="card-title mb-0">Membre</h4>
       </div>
         <div class="row gutters-sm">
           <div class="col-md-4 mb-3">
@@ -14,10 +11,10 @@
                 <div class="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                   <div class="mt-3">
-                    <h4>{{ Member.nom }} {{ Member.prenom }}</h4>
-                    <p class="text-secondary mb-1">{{ Member.type }}</p>
-                    <p class="text-muted font-size-sm">{{ Member.etablissement }}</p>
-                    <button class="btn btn-primary">cv</button>
+                    <h4>{{ member.nom }} {{ member.prenom }}</h4>
+                    <p class="text-primary mb-1">{{ member.type }}</p>
+                    <p class="text-muted font-size-sm">{{ member.etablissement }}</p>
+                    <button class="btn btn-primary">CV</button>
                     <!--<button class="btn btn-outline-primary" routerLink="/component/member-edit">Edit</button>-->
                   </div>
                 </div>
@@ -30,10 +27,10 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">Full Name</h6>
+                    <h6 class="mb-0">Nom Complet</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.nom }} {{ Member.prenom }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.nom }} {{ member.prenom }}
                   </div>
                 </div>
                 <hr>
@@ -41,56 +38,75 @@
                   <div class="col-sm-3">
                     <h6 class="mb-0">Email</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.email }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.email }}
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">cin</h6>
+                    <h6 class="mb-0">CIN</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.cin }}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">date</h6>
-                  </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.date }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.cin }}
                   </div>
                 </div>
                 <hr>
                 <div class="row">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">diplome</h6>
+                    <h6 class="mb-0">Date de Naissance</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.diplome }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.date }}
                   </div>
                 </div>
                 <hr>
-                <div class="row">
+                <div class="row" *ngIf="member.diplome != null">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">encadreur</h6>
+                    <h6 class="mb-0">Diplome</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.encadreur }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.diplome }}
                   </div>
+                  <hr>
                 </div>
-                <hr>
-                <div class="row">
+                <div class="row" *ngIf="member.dateInscription != null">
                   <div class="col-sm-3">
-                    <h6 class="mb-0">grade</h6>
+                    <h6 class="mb-0">Date d'Inscription</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {{ Member.grade }}
+                  <div class="col-sm-9 text-primary">
+                    {{ member.dateInscription }}
                   </div>
+                  <hr>
                 </div>
-                <hr>
+                <div class="row" *ngIf="member.encadreur != null">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Encadreur</h6>
+                  </div>
+                  <div class="col-sm-9 text-primary">
+                    {{ member.encadreur }}
+                  </div>
+                  <hr>
+                </div>
+                <div class="row" *ngIf="member.grade != null">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Grade</h6>
+                  </div>
+                  <div class="col-sm-9 text-primary">
+                    {{ member.grade }}
+                  </div>
+                  <hr>
+                </div>
+                <div class="row" *ngIf="member.etablissement != null">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Etablissement</h6>
+                  </div>
+                  <div class="col-sm-9 text-primary">
+                    {{ member.etablissement }}
+                  </div>
+                  <hr>
+                </div>
+
 
               </div>
             </div>
