@@ -23,6 +23,9 @@ import { OutilsComponent } from './outils/outils.component';
 import { OutilFormComponent } from './outil-form/outil-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MemberShowComponent } from './member-show/member-show.component';
+import { EvenementShowComponent } from './evenement-show/evenement-show.component';
+import { OutilsShowComponent } from './outils-show/outils-show.component';
+
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -54,7 +57,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     OutilsComponent,
     OutilFormComponent,
     ProfileComponent,
-    MemberShowComponent
+    MemberShowComponent,
+    EvenementShowComponent,
+    OutilsShowComponent
   ],
 
 })

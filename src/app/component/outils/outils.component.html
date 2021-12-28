@@ -1,1 +1,65 @@
-<p>outils works!</p>
+<div class="row">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Outils</h4>
+        </div>
+        <button class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/outil-form">Ajouter Outil</button>
+      </div>
+      <div class="card-body border-top">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Source</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let outil of outils">
+            <td>{{outil.id}}</td>
+            <td>{{outil.date}}</td>
+            <td>{{outil.source}}</td>
+            <td><div class="btn-group" ngbDropdown>
+              <button type="button" class="btn btn-primary
+                dropdown-toggle-icon-none
+                d-flex
+                align-items-center"               id="dropdown1"
+                      ngbDropdownToggle>
+                                        <span class="icon icon-sm">
+                                            <span class="fas fa-ellipsis-h icon-dark"></span>
+                                        </span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+
+              <ul ngbDropdownMenu aria-labelledby="dropdown1">
+                <li>
+                  <a class="dropdown-item text-black btn-labeled"  routerLink="/component/outil-show/{{outil.id}}" ><span class="btn-label"><i class="fa fa-eye"></i></span> Show</a></li>
+                <li><a class="dropdown-item text-black" routerLink="/component/outil-form/{{outil.id}}/edit"><span class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
+                  text: 'You will not be able to revert this!',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, delete it!',
+                  reverseButtons: true,
+                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
+                       (confirm)="onRemove(outil.id)"
+                ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
+              </ul>
+            </div></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
