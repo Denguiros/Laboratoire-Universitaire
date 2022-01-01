@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {EvenementService} from "../../../services/evenement.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Member} from "../../../models/member.model";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Evenement} from "../../../models/evenement.model";
+import { NameValidator } from '../../app-validator-form';
 
 @Component({
   selector: 'app-evenement-form',
@@ -17,8 +18,13 @@ export class EvenementFormComponent implements OnInit {
 
   constructor(private evenementService: EvenementService,private router: Router,
               private activatedRoute: ActivatedRoute)
-  {}
+  {
 
+  }
+
+  get m(){
+    return this.form.controls;
+  }
 
   ngOnInit(): void {
     $("#type").select2({

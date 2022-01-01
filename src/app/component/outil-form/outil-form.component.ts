@@ -59,4 +59,8 @@ export class OutilFormComponent implements OnInit {
       .saveOutil(outilToSave)
       .then(() => this.router.navigate(['/component/outils']));
   }
+
+  get m(){
+    return this.form.controls;
+  }
 }
