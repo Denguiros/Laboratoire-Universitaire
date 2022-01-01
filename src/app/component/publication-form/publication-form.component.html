@@ -10,8 +10,7 @@
       <div class="card-body border-top">
         <angular-editor id="editor" (ngModelChange)="onChange($event)" [config]="config"[placeholder]="'Enter text here...'" (blur)="onBlur($event)" [(ngModel)]="htmlContent"></angular-editor>
       </div>
-      <p ng-bind-html="htmlContent">HTML Output:  {{ htmlContent}}</p>
-      <p ng-bind-html="htmlContent"></p>
+      html output:<span [innerHtml]="htmlContent"></span>
     </div>
   </div>
 </div>
