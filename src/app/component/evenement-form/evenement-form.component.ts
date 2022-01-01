@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Member} from "../../../models/member.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Evenement} from "../../../models/evenement.model";
-import { NameValidator } from '../../app-validator-form';
+
 
 @Component({
   selector: 'app-evenement-form',

@@ -13,27 +13,42 @@
             <div class="col-md-4">
               <label for="nom" class="control-label">Nom</label>
               <input id="nom" class="form-control" formControlName="nom"/>
-              <span  class="text-danger"></span>
+              <div *ngIf="m.nom.invalid && (m.nom.dirty || m.nom.touched)">
+                <span  class="text-danger" *ngIf="m.nom.errors?.required">Please provide Nom</span>
+                <span  class="text-danger" *ngIf="m.nom.errors?.pattern">only provide only lettre</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label for="prenom" class="control-label">Prenom</label>
               <input id="prenom" class="form-control" formControlName="prenom"/>
-              <span  class="text-danger"></span>
+              <div *ngIf="m.prenom.invalid && (m.prenom.dirty || m.prenom.touched)">
+                <span  class="text-danger" *ngIf="m.prenom.errors?.required">Please provide Prenom</span>
+                <span  class="text-danger" *ngIf="m.prenom.errors?.pattern">Please provide  only lettre</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label for="email" class="control-label">Email</label>
               <input id="email" class="form-control" type="email" formControlName="email"/>
-              <span  class="text-danger"></span>
+              <div *ngIf="m.email.invalid && (m.email.dirty || m.email.touched)">
+                <span  class="text-danger" *ngIf="m.email.errors?.required">Please provide Email</span>
+                <span  class="text-danger" *ngIf="m.email.errors?.pattern">Incorrect mail </span>
+              </div>
             </div>
             <div class="col-md-4">
               <label  for="cin" class="control-label">Cin</label>
               <input id="cin" formControlName="cin" class="form-control"/>
-              <span class="text-danger"></span>
+              <div *ngIf="m.cin.invalid && (m.cin.dirty || m.cin.touched)">
+                <span  class="text-danger" *ngIf="m.cin.errors?.required">Please provide Cin</span>
+                <span  class="text-danger" *ngIf="m.cin.errors?.pattern">Only number</span>
+                <span  class="text-danger" *ngIf="m.cin.errors?.maxlength || m.cin.errors?.minlength">Please provide 8 number</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label  for="dateNaissance" class="control-label">Date Naissance</label>
               <input id="dateNaissance" formControlName="date" type="date" class="form-control"/>
-              <span class="text-danger"></span>
+              <div *ngIf="m.date.invalid && (m.date.dirty || m.date.touched)">
+                <span  class="text-danger" *ngIf="m.date.errors?.required">Please provide date naissance</span>
+              </div>
             </div>
             <div class="col-md-4" style="margin-top: 0.6rem">
               <label class="control-label">Type</label>
@@ -41,12 +56,16 @@
                 <option value="Etudiant">Etudiant</option>
                 <option value="Enseignant">Enseignant</option>
               </select>
-              <span  class="text-danger"></span>
+              <div *ngIf="m.type.invalid && (m.type.dirty || m.type.touched)">
+                <span  class="text-danger" *ngIf="m.type.errors?.required">Please provide type</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label  for="etablissement" class="control-label">Etablissement</label>
               <input id="etablissement" formControlName="etablissement" type="text" class="form-control" required/>
-              <span class="text-danger"></span>
+              <div *ngIf="m.etablissement.invalid && (m.etablissement.dirty || m.etablissement.touched)">
+                <span  class="text-danger" *ngIf="m.etablissement.errors?.required">Please provide etablissement</span>
+              </div>
               <div class="invalid-feedback">
                 Please provide a valid Etablissement.
               </div>
@@ -55,12 +74,16 @@
             <div class="col-md-4">
               <label  for="grade" class="control-label">Grade</label>
               <input id="grade" formControlName="grade" type="text" class="form-control"/>
-              <span class="text-danger"></span>
+              <div *ngIf="m.grade.invalid && (m.grade.dirty || m.grade.touched)">
+                <span  class="text-danger" *ngIf="m.grade.errors?.required">Please provide grade</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label  for="diplome" class="control-label">Diplome</label>
               <input id="diplome" formControlName="diplome" type="text" class="form-control"/>
-              <span class="text-danger"></span>
+              <div *ngIf="m.diplome.invalid && (m.diplome.dirty || m.diplome.touched)">
+                <span  class="text-danger" *ngIf="m.diplome.errors?.required">Please provide diplome</span>
+              </div>
             </div>
           </div>
           <div class="form-group" style="margin-top: 2rem">

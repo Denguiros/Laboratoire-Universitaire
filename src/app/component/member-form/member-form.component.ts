@@ -5,6 +5,7 @@ import {MemberService} from "../../../services/member.service";
 import {Member} from "../../../models/member.model";
 import {Select2OptionData} from "ng-select2";
 
+
 @Component({
   selector: 'app-member-form',
   templateUrl: './member-form.component.html',
@@ -12,10 +13,10 @@ import {Select2OptionData} from "ng-select2";
 })
 export class MemberFormComponent implements OnInit {
   form: FormGroup = new FormGroup({
-    cin: new FormControl("", [Validators.required]),
-    nom: new FormControl("", [Validators.required]),
-    prenom: new FormControl("", [Validators.required]),
-    email: new FormControl("", [Validators.required]),
+    cin: new FormControl("", [Validators.required,Validators.maxLength(8),Validators.minLength(8),Validators.pattern("^[0-9]*$")]),
+    nom: new FormControl("", [Validators.required,Validators.pattern("^[a-zA-Z ]*$")]),
+    prenom: new FormControl("", [Validators.required,Validators.pattern("^[a-zA-Z ]*$")]),
+    email: new FormControl("", [Validators.required,Validators.pattern("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
     date: new FormControl("", [Validators.required]),
     type: new FormControl("", [Validators.required]),
     grade: new FormControl("", [Validators.required]),
@@ -78,5 +79,8 @@ export class MemberFormComponent implements OnInit {
     }
   }
 
+  get m(){
+    return this.form.controls;
+  }
 }
 
