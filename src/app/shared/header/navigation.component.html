@@ -24,7 +24,7 @@
       <span class="ms-2">Steve Jobs</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
-      <a class="dropdown-item" routerLink="/component/profile"> My Profile</a>
+      <a class="dropdown-item" routerLink="/component/member-show/{{loggedInUser.id}}"> My Profile</a>
 
       <a class="dropdown-item"  (click)="loggout()" > Logout</a>
     </div>

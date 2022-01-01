@@ -5,6 +5,7 @@ export interface Member {
   prenom: string;
   type: string;
   cv: string;
+  photo:string;
   email:string;
   date:string;
   dateInscription: string;

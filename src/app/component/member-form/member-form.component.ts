@@ -25,6 +25,7 @@ export class MemberFormComponent implements OnInit {
   currentId: string = '';
   memberReceivedByService: any;
   fromType = "Add";
+
   constructor(
     private memberService: MemberService,
     private router: Router,
@@ -64,14 +65,17 @@ export class MemberFormComponent implements OnInit {
       ...this.form.value,
     };
     memberToSave.type = $('#type').select2('data')[0].id;
-    memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
-    if(memberToSave.id != null)
-    {
-      this.memberService.updateMember(memberToSave).then(() => this.router.navigate(['/component/members']));
+    if (memberToSave.type === "Etudiant") {
+      memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
     }
-    this.memberService
-      .saveMember(memberToSave)
-      .then(() => this.router.navigate(['/component/members']));
+    console.log(memberToSave);
+    if (memberToSave.id != null) {
+      this.memberService.updateMember(memberToSave).then(() => this.router.navigate(['/component/members']));
+    } else {
+      this.memberService
+        .saveMember(memberToSave)
+        .then(() => this.router.navigate(['/component/members']));
+    }
   }
 
 }

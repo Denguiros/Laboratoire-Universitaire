@@ -46,7 +46,7 @@ export const ComponentsRoutes: Routes = [
         component: EvenementFormComponent
       },
       {
-        path: 'evenment-show/:id',
+        path: 'evenement-show/:id',
         component:  EvenementShowComponent
       },
       {

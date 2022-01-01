@@ -23,7 +23,17 @@ export class MemberService {
       return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/'+member.id, member).toPromise();
     }
     return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/'+member.id, member).toPromise();
-
+  }
+  updateMemberWithFiles(formData:FormData,id:string,type:string):Promise<Member>{
+    const httpOptions = {
+      reportProgress: true
+    }
+    if (type.valueOf() === "Enseignant") {
+      return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/'+id,
+        formData,httpOptions).toPromise();
+    }
+    return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/'+id,
+      formData,httpOptions).toPromise();
   }
 
   getMemeberById(id: string): Promise<Member> {
@@ -48,6 +58,16 @@ export class MemberService {
     return this.httpClient
       .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/search/email',{
         params
+      })
+      .toPromise();
+  }
+
+  getUserPhoto(photo: string) {
+    const params = new HttpParams().set("path",photo);
+    return this.httpClient
+      .get('http://localhost:4200/api/MEMBRE-SERVICE/get-image',{
+        params,
+        responseType:'blob'
       })
       .toPromise();
   }
