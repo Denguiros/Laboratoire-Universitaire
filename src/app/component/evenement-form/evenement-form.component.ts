@@ -12,6 +12,7 @@ import {Evenement} from "../../../models/evenement.model";
   styleUrls: ['./evenement-form.component.scss']
 })
 export class EvenementFormComponent implements OnInit {
+  submitted = false;
   form: any;
   currentId: string = '';
   EvenementReceivedByService: any;
@@ -45,6 +46,13 @@ export class EvenementFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.submitted = true;
+    if(!this.form.valid) {
+      alert('Please fill all the required fields to create a evenement!') ;
+    } else {
+      console.log(this.form.value);
+
+    }
     /*const memberToSave: Member = {
       ...this.EvenementReceivedByService,
       ...this.form.value,
