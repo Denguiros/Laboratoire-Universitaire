@@ -49,7 +49,7 @@ export class OutilFormComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     if(!this.form.valid) {
-      alert('Please fill all the required fields to create a member!') ;
+      alert('Please fill all the required fields to create a outil!') ;
     } else {
     const outilToSave: Outil = {
       ...this.outilReceivedByService,
