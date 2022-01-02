@@ -35,22 +35,28 @@ export class MemberFormComponent implements OnInit {
     date: ["", [Validators.required]],
     type: ["", [Validators.required]],
     admin: ["", [Validators.required]],
-    MembergradeEtablissement: this.fb.array([],Validators.maxLength(1)) ,
-    MemberdateInscriptiondiplome: this.fb.array([],Validators.maxLength(1)) ,
   });
 
   ngOnInit(): void {
     this.form.get('type')?.valueChanges.subscribe(data => {
       if(data == 'Enseignant'){
+        this.form.addControl('grade', new FormControl('', Validators.required));
+        this.form.addControl('etablissement', new FormControl('', Validators.required));
 
-        this.addgradeEtablissement();
-        this.removedateInscriptiondiplome(0);
+        this.form.removeControl('dateInscription');
+        this.form.removeControl('diplome');
       }
       if(data == 'Etudiant'){
-        this.adddateInscriptiondiplome();
-        this.removegradeEtablissement(0);
+        this.form.addControl('dateInscription', new FormControl('', Validators.required));
+        this.form.addControl('diplome', new FormControl('', Validators.required));
+
+        this.form.removeControl('grade');
+        this.form.removeControl('etablissement');
+
       }
     })
+
+
     $("#type").select2({
       theme: "classic",
     });
@@ -63,7 +69,7 @@ export class MemberFormComponent implements OnInit {
           this.memberReceivedByService = member;
           console.log(member);
           this.form.patchValue(member);
-          if (member.grade != null) {
+         if (member.grade != null) {
             $("#type").val("Enseignant");
           } else {
             $("#type").val("Etudiant");
@@ -87,9 +93,9 @@ export class MemberFormComponent implements OnInit {
   onSubmit(): void {
 
     this.submitted = true;
-    // if(!this.form.valid) {
-    //   alert('Please fill all the required fields to create a member!') ;
-    // } else {
+     if(!this.form.valid) {
+      alert('Please fill all the required fields to create a member!') ;
+     } else {
     const memberToSave: Member = {
       ...this.memberReceivedByService,
       ...this.form.value,
@@ -113,57 +119,15 @@ export class MemberFormComponent implements OnInit {
         .saveMember(memberToSave)
         .then(() => this.router.navigate(['/component/members']));
       console.log(this.form);
-      console.log(this.form.get('MembergradeEtablissement.0.diplome')?.value);
 
     }
   }
 
-  // }
+  }
 
   get formControls() {
     return this.form.controls;
   }
-
-  //- ------------------------------ add/remove grade Etablissement --------------------------------------
-  gradeEtablissement() : FormArray {
-    return this.form.get("MembergradeEtablissement") as FormArray
-  }
-
-  newgradeEtablissement(): FormGroup {
-    return this.fb.group({
-      grade: ["", [Validators.required]],
-      etablissement: ["", [Validators.required]],
-    })
-  }
-  addgradeEtablissement() {
-    this.gradeEtablissement().push(this.newgradeEtablissement());
-  }
-
-  removegradeEtablissement(i:number) {
-    this.gradeEtablissement().removeAt(i);
-  }
-
-  // -------------------------- add/remove dateInscription diplome ----------------------------------
-
-  dateInscriptiondiplome() : FormArray {
-    return this.form.get("MemberdateInscriptiondiplome") as FormArray
-  }
-
-  newdateInscriptiondiplome(): FormGroup {
-    return this.fb.group({
-      dateInscription: ["", [Validators.required]],
-      diplome: ["", [Validators.required]],
-    })
-  }
-
-  adddateInscriptiondiplome() {
-    this.dateInscriptiondiplome().push(this.newdateInscriptiondiplome());
-  }
-
-  removedateInscriptiondiplome(i:number) {
-    this.dateInscriptiondiplome().removeAt(i);
-  }
-
 
 }
 
