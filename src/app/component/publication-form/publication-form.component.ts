@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./publication-form.component.scss']
 })
 export class PublicationFormComponent implements OnInit {
+  submitted = false;
   form = this.formBuilder.group({
     signature: ['', Validators.required]
   });
@@ -61,5 +62,17 @@ export class PublicationFormComponent implements OnInit {
   onBlur(event:any) {
     console.log('blur ' + event);
   }
+  onSubmit(): void {
+    this.submitted = true;
+    if(!this.form.valid) {
+      alert('Please fill all the required fields to create a publication!') ;
+    } else {
+      console.log('succeed');
 
+    }
+  }
+
+  get m(){
+    return this.form.controls;
+  }
 }

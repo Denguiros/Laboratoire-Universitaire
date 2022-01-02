@@ -13,21 +13,21 @@
             <div class="col-md-4">
               <label for="titre" class="control-label">Titre</label>
               <input id="titre" class="form-control" formControlName="titre"/>
-              <div *ngIf="m.titre.invalid && (m.titre.dirty || m.titre.touched)">
+              <div *ngIf="(m.titre.invalid && (m.titre.dirty || m.titre.touched)) || submitted">
                 <span  class="text-danger" *ngIf="m.titre.errors?.required">Please provide titre</span>
               </div>
             </div>
             <div class="col-md-4">
               <label for="lieu" class="control-label">Lieu</label>
               <input id="lieu" class="form-control" formControlName="lieu"/>
-              <div *ngIf="m.lieu.invalid && (m.lieu.dirty || m.lieu.touched)">
+              <div *ngIf="(m.lieu.invalid && (m.lieu.dirty || m.lieu.touched)) || submitted">
                 <span  class="text-danger" *ngIf="m.lieu.errors?.required">Please provide titre</span>
               </div>
             </div>
             <div class="col-md-4">
               <label  for="date" class="control-label">Date</label>
               <input id="date" formControlName="date" type="date" class="form-control"/>
-              <div *ngIf="m.date.invalid && (m.date.dirty || m.date.touched)">
+              <div *ngIf="(m.date.invalid && (m.date.dirty || m.date.touched)) || submitted">
                 <span  class="text-danger" *ngIf="m.date.errors?.required">Please provide titre</span>
               </div>
             </div>

@@ -13,14 +13,14 @@
             <div class="col-md-4">
               <label for="date" class="control-label">date</label>
               <input id="date" class="form-control"  type="date" formControlName="date"/>
-              <div *ngIf="m.date.invalid && (m.date.dirty || m.date.touched)">
+              <div *ngIf="(m.date.invalid && (m.date.dirty || m.date.touched)) || submitted">
                 <span  class="text-danger" *ngIf="m.date.errors?.required">Please provide titre</span>
               </div>
             </div>
             <div class="col-md-4">
               <label for="source" class="control-label">source</label>
               <input id="source" class="form-control" formControlName="source"/>
-              <div *ngIf="m.source.invalid && (m.source.dirty || m.source.touched)">
+              <div *ngIf="(m.source.invalid && (m.source.dirty || m.source.touched)) || submitted">
                 <span  class="text-danger" *ngIf="m.source.errors?.required">Please provide titre</span>
               </div>
             </div>

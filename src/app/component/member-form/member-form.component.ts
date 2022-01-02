@@ -12,6 +12,7 @@ import {Select2OptionData} from "ng-select2";
   styleUrls: ['./member-form.component.scss'],
 })
 export class MemberFormComponent implements OnInit {
+  submitted = false;
   form: FormGroup = new FormGroup({
     cin: new FormControl("", [Validators.required,Validators.maxLength(8),Validators.minLength(8),Validators.pattern("^[0-9]*$")]),
     nom: new FormControl("", [Validators.required,Validators.pattern("^[a-zA-Z ]*$")]),
@@ -61,22 +62,28 @@ export class MemberFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const memberToSave: Member = {
-      ...this.memberReceivedByService,
-      ...this.form.value,
-    };
-    memberToSave.type = $('#type').select2('data')[0].id;
-    if (memberToSave.type === "Etudiant") {
-      memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
-    }
-    console.log(memberToSave);
-    if (memberToSave.id != null) {
-      this.memberService.updateMember(memberToSave).then(() => this.router.navigate(['/component/members']));
+    this.submitted = true;
+    if(!this.form.valid) {
+      alert('Please fill all the required fields to create a member!') ;
     } else {
-      this.memberService
-        .saveMember(memberToSave)
-        .then(() => this.router.navigate(['/component/members']));
+      const memberToSave: Member = {
+        ...this.memberReceivedByService,
+        ...this.form.value,
+      };
+      memberToSave.type = $('#type').select2('data')[0].id;
+      if (memberToSave.type === "Etudiant") {
+        memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
+      }
+      console.log(memberToSave);
+      if (memberToSave.id != null) {
+        this.memberService.updateMember(memberToSave).then(() => this.router.navigate(['/component/members']));
+      } else {
+        this.memberService
+          .saveMember(memberToSave)
+          .then(() => this.router.navigate(['/component/members']));
+      }
     }
+
   }
 
   get m(){

@@ -10,6 +10,7 @@ import { Route, Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./outil-form.component.scss']
 })
 export class OutilFormComponent implements OnInit {
+  submitted = false;
   form: FormGroup = new FormGroup({
     cin: new FormControl("", [Validators.required]),
     source: new FormControl("", [Validators.required]),
@@ -46,6 +47,10 @@ export class OutilFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.submitted = true;
+    if(!this.form.valid) {
+      alert('Please fill all the required fields to create a outil!') ;
+    } else {
     const outilToSave: Outil = {
       ...this.outilReceivedByService,
       ...this.form.value,
@@ -59,6 +64,7 @@ export class OutilFormComponent implements OnInit {
       .saveOutil(outilToSave)
       .then(() => this.router.navigate(['/component/outils']));
   }
+}
 
   get m(){
     return this.form.controls;

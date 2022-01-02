@@ -10,6 +10,9 @@
       <div class="card-body border-top">
         <angular-editor id="editor" (ngModelChange)="onChange($event)" [config]="config"[placeholder]="'Enter text here...'" (blur)="onBlur($event)" [(ngModel)]="htmlContent"></angular-editor>
       </div>
+      <div *ngIf="(m.signature.invalid && (m.signature.dirty || m.signature.touched)) || submitted">
+        <span  class="text-danger" *ngIf="m.signature.errors?.required">Please provide titre</span>
+      </div>
       html output:<span [innerHtml]="htmlContent"></span>
     </div>
   </div>
