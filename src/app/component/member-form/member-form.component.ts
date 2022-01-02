@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemberService} from "../../../services/member.service";
 import {Member} from "../../../models/member.model";
@@ -12,20 +12,9 @@ import {Select2OptionData} from "ng-select2";
   styleUrls: ['./member-form.component.scss'],
 })
 export class MemberFormComponent implements OnInit {
+  // type Names
+  Type: any = ['Enseignant', 'Etudiant']
   submitted = false;
-  form: FormGroup = new FormGroup({
-    cin: new FormControl("", [Validators.required, Validators.maxLength(8), Validators.minLength(8), Validators.pattern("^[0-9]*$")]),
-    nom: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-    prenom: new FormControl("", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]),
-    email: new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
-    date: new FormControl("", [Validators.required]),
-    dateInscription: new FormControl(""),
-    type: new FormControl("", [Validators.required]),
-    admin: new FormControl("", [Validators.required]),
-    grade: new FormControl(""),
-    etablissement: new FormControl(""),
-    diplome: new FormControl(""),
-  });
   currentId: string = '';
   memberReceivedByService: any;
   fromType = "Add";
@@ -33,26 +22,38 @@ export class MemberFormComponent implements OnInit {
   constructor(
     private memberService: MemberService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fb:FormBuilder
   ) {
   }
 
+  form: FormGroup = this.fb.group({
+    cin: ["", [Validators.required, Validators.maxLength(8), Validators.minLength(8), Validators.pattern("^[0-9]*$")]],
+    nom: ["", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]],
+    prenom: ["", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]],
+    email: ["", [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
+    date: ["", [Validators.required]],
+    type: ["", [Validators.required]],
+    admin: ["", [Validators.required]],
+    MembergradeEtablissement: this.fb.array([],Validators.maxLength(1)) ,
+    MemberdateInscriptiondiplome: this.fb.array([],Validators.maxLength(1)) ,
+  });
+
   ngOnInit(): void {
+    this.form.get('type')?.valueChanges.subscribe(data => {
+      if(data == 'Enseignant'){
+
+        this.addgradeEtablissement();
+        this.removedateInscriptiondiplome(0);
+      }
+      if(data == 'Etudiant'){
+        this.adddateInscriptiondiplome();
+        this.removegradeEtablissement(0);
+      }
+    })
     $("#type").select2({
       theme: "classic",
     });
-    const etudiant = {
-      id: 'Etudiant',
-      text: 'Etudiant'
-    };
-    const enseignant = {
-      id: 'Enseignant',
-      text: 'Enseignant'
-    };
-    const etudiantOption = new Option(etudiant.text, etudiant.id, false, false);
-    const enseignantOption = new Option(enseignant.text, enseignant.id, false, false);
-    $('#type').append(etudiantOption).trigger('change');
-    $('#type').append(enseignantOption).trigger('change');
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.memberService.getMemberById(this.currentId).then((member) => {
@@ -72,10 +73,19 @@ export class MemberFormComponent implements OnInit {
           this.router.navigate(["/component/members"])
         }
       });
+
     }
+
+  }
+   // Choose city using select dropdown
+   changetype(e:any) {
+    this.form.get('type')?.setValue(e.target.value, {
+      onlySelf: true
+    })
   }
 
   onSubmit(): void {
+
     this.submitted = true;
     // if(!this.form.valid) {
     //   alert('Please fill all the required fields to create a member!') ;
@@ -102,6 +112,9 @@ export class MemberFormComponent implements OnInit {
       this.memberService
         .saveMember(memberToSave)
         .then(() => this.router.navigate(['/component/members']));
+      console.log(this.form);
+      console.log(this.form.get('MembergradeEtablissement.0.diplome')?.value);
+
     }
   }
 
@@ -110,5 +123,47 @@ export class MemberFormComponent implements OnInit {
   get formControls() {
     return this.form.controls;
   }
+
+  //- ------------------------------ add/remove grade Etablissement --------------------------------------
+  gradeEtablissement() : FormArray {
+    return this.form.get("MembergradeEtablissement") as FormArray
+  }
+
+  newgradeEtablissement(): FormGroup {
+    return this.fb.group({
+      grade: ["", [Validators.required]],
+      etablissement: ["", [Validators.required]],
+    })
+  }
+  addgradeEtablissement() {
+    this.gradeEtablissement().push(this.newgradeEtablissement());
+  }
+
+  removegradeEtablissement(i:number) {
+    this.gradeEtablissement().removeAt(i);
+  }
+
+  // -------------------------- add/remove dateInscription diplome ----------------------------------
+
+  dateInscriptiondiplome() : FormArray {
+    return this.form.get("MemberdateInscriptiondiplome") as FormArray
+  }
+
+  newdateInscriptiondiplome(): FormGroup {
+    return this.fb.group({
+      dateInscription: ["", [Validators.required]],
+      diplome: ["", [Validators.required]],
+    })
+  }
+
+  adddateInscriptiondiplome() {
+    this.dateInscriptiondiplome().push(this.newdateInscriptiondiplome());
+  }
+
+  removedateInscriptiondiplome(i:number) {
+    this.dateInscriptiondiplome().removeAt(i);
+  }
+
+
 }
 
