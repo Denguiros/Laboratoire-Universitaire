@@ -34,6 +34,10 @@ export class SidebarComponent implements OnInit {
     if (this.loggedInUser == null) {
       this.authService.loggedInUser.subscribe(value => {
           this.loggedInUser = value;
+        if (this.loggedInUser.admin) {
+          this.loggedInUserIsAdmin = true;
+        }
+        this.ngOnInit();
         }
       )
     }
@@ -41,6 +45,7 @@ export class SidebarComponent implements OnInit {
       this.loggedInUserIsAdmin = true;
     }
     this.ngOnInit();
+
   };
 
 

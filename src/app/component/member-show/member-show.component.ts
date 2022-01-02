@@ -26,7 +26,6 @@ export class MemberShowComponent implements OnInit {
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.memberService.getMemberById(this.currentId).then((member) => {
-        console.log(member)
         if (member.id != null) {
           this.member = member;
           if (member.photo != null) {

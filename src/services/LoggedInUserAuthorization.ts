@@ -8,7 +8,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "
 })
 export class LoggedInUserAuthorization implements CanActivate {
   // @ts-ignore
-  loggedInUser = JSON.parse(localStorage.getItem("user"));
+  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
   constructor(public router: Router) {
   }
 
