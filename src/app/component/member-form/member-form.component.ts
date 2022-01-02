@@ -41,7 +41,7 @@ export class MemberFormComponent implements OnInit {
     });
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
-      this.memberService.getMemeberById(this.currentId).then((member) => {
+      this.memberService.getMemberById(this.currentId).then((member) => {
 
         if (member.id != null) {
           this.fromType = "Update";

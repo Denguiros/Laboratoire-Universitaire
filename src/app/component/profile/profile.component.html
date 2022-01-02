@@ -11,7 +11,10 @@
          <form  class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row">
           <div class="col-3">
-            <img src="assets/images/users/user1.jpg" width="100%">
+            <img *ngIf="member.photo !=null;else noPhoto" id="image" width="100%">
+            <ng-template #noPhoto>
+              <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="150">
+            </ng-template>
             <input type="file" id="picture" class="form-control" (change)="onFileSelect($event,'photo')"/>
           </div>
           <div class="col-8">

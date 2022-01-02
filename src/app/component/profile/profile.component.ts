@@ -26,35 +26,50 @@ export class ProfileComponent implements OnInit {
   });
 
   // @ts-ignore
-  member= JSON.parse(localStorage.getItem('user'));
+  member = JSON.parse(localStorage.getItem('user'));
 
   constructor(private memberService: MemberService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.memberService.getMemeberByEmail(this.member.email).then((member) => {
+    this.memberService.getMemberByEmail(this.member.email).then((member) => {
       $("#type").select2({
         theme: "classic",
         placeholder: "Select a type"
       });
       this.member = member;
-      if(member.diplome != null)
-      {
-        this.member.type="Etudiant";
+      if (member.diplome != null) {
+        this.member.type = "Etudiant";
+      } else {
+        this.member.type = "Enseignant";
       }
-      else {
-        this.member.type="Enseignant";
+      if (member.photo != null) {
+
+        this.memberService.getUserFile(this.member.photo).then((photo) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(photo);
+          // @ts-ignore
+          reader.onloadend = () => {
+
+            // just putting the data url to img element
+            // @ts-ignore
+            document.querySelector('#image').src = reader.result;
+          }
+          console.log(photo);
+        });
       }
       this.form.patchValue(member);
     })
   }
-  onFileSelect(event: any,type:string) {
+
+  onFileSelect(event: any, type: string) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       // @ts-ignore
       this.form.get(type).setValue(file);
     }
   }
+
   onSubmit(): void {
     const memberToSave: Member = {
       ...this.form.value,
@@ -63,9 +78,9 @@ export class ProfileComponent implements OnInit {
     memberToSave.cv = "";
     memberToSave.photo = "";
     const formData = new FormData();
-    formData.append("cv",this.form.value.cv);
-    formData.append("photo",this.form.value.photo);
-    formData.append("member",JSON.stringify(memberToSave));
-    this.memberService.updateMemberWithFiles(formData,memberToSave.id,this.member.type).then(() => this.router.navigate(['/component/member-show/'+memberToSave.id]));
+    formData.append("cv", this.form.value.cv);
+    formData.append("photo", this.form.value.photo);
+    formData.append("member", JSON.stringify(memberToSave));
+    this.memberService.updateMemberWithFiles(formData, memberToSave.id, this.member.type).then(() => this.router.navigate(['/component/member-show/' + memberToSave.id]));
   }
 }

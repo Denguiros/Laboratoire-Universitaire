@@ -25,32 +25,47 @@ export class MemberShowComponent implements OnInit {
   ngOnInit(): void {
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
-      this.memberService.getMemeberById(this.currentId).then((member) => {
-          if (member.id != null) {
-            this.member = member;
-            this.memberService.getUserPhoto(this.member.photo).then((photo) => {
+      this.memberService.getMemberById(this.currentId).then((member) => {
+        console.log(member)
+        if (member.id != null) {
+          this.member = member;
+          if (member.photo != null) {
+            this.memberService.getUserFile(this.member.photo).then((photo) => {
               const reader = new FileReader();
               reader.readAsDataURL(photo);
               // @ts-ignore
               reader.onloadend = () => {
-
                 // just putting the data url to img element
                 // @ts-ignore
-                document.querySelector('#image').src = reader.result ;
+                document.querySelector('#image').src = reader.result;
               }
-              console.log(photo);
             });
-            this.member.type = member.grade != null ? "Enseignant" : "Etudiant";
-            if (this.member.email === this.loggedInUser.email) {
-              this.canEdit = true;
-            }
-          } else {
-            this.router.navigate(["/component/members"]);
+
+          }
+          if (member.cv != null) {
+            this.memberService.getUserFile(this.member.cv).then((cv) => {
+              const file = new Blob([cv], {
+                type: 'application/pdf'
+              });
+              // @ts-ignore
+              document.querySelector('#cv').href = URL.createObjectURL(file);
+              // @ts-ignore
+              document.querySelector('#cv').download = 'cv.pdf';
+            })
+          }
+          this.member.type = this.member.grade != null ? "Enseignant" : "Etudiant";
+          if (this.member.email === this.loggedInUser.email) {
+            this.canEdit = true;
           }
         }
-      )
-      ;
+        else {
+          this.router.navigate(["/component/members"]);
+        }
+      });
+    } else {
+      this.router.navigate(["/component/members"]);
     }
   }
 }
+
 

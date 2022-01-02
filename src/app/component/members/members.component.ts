@@ -12,6 +12,7 @@ export class MembersComponent implements OnDestroy, OnInit {
   members: Member[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -20,23 +21,44 @@ export class MembersComponent implements OnDestroy, OnInit {
   }
 
   getAllMembers() {
-    this.memberService.getAllMemebers().then((members) => {
+    this.memberService.getAllMembers().then((members) => {
       this.members = members;
+      this.members.forEach((member) => {
+        if (member.photo != null) {
+
+          this.memberService.getUserFile(member.photo).then((photo) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(photo);
+            // @ts-ignore
+            reader.onloadend = () => {
+
+              // just putting the data url to img element
+              // @ts-ignore
+              document.querySelector('#image' + member.id).src = reader.result;
+            }
+            console.log(photo);
+          });
+        }
+      })
       this.dtTrigger.next();
     });
   }
+
   onRemove(id: string) {
     this.memberService.deleteMemberById(id).then(() => {
-      this.memberService.getAllMemebers().then((members) => {
+      this.memberService.getAllMembers().then((members) => {
         this.members = members;
       });
     });
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
   constructor(
     private memberService: MemberService
-  ) {}
+  ) {
+  }
 }

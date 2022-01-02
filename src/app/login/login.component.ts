@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        this.memberService.getMemeberByEmail(typeof user.email === "string" ? user.email : "").then((member) => {
+        this.memberService.getMemberByEmail(typeof user.email === "string" ? user.email : "").then((member) => {
           if (member == null) {
             console.log("New member logged in ... getting informations from google in progress..");
             const email = typeof user.email === "string" ? user.email : "";
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
             this.memberService.saveMember(newMembre).then((member) => {
               console.log("Member added to db");
             });
-            this.memberService.getMemeberByEmail(email).then((member) => {
+            this.memberService.getMemberByEmail(email).then((member) => {
               localStorage.setItem("user", JSON.stringify(member));
             });
           } else {

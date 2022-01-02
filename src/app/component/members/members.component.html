@@ -26,7 +26,10 @@
             <td>{{member.id}}</td>
             <td>
               <div class="d-flex align-items-center">
-                <img src="assets/images/users/user1.jpg" alt="user" width="45" class="rounded-circle">
+                <img *ngIf="member.photo !=null;else noPhoto" id="image{{member.id}}" alt="user" width="45" class="rounded-circle">
+                <ng-template #noPhoto>
+                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45" class="rounded-circle">
+                </ng-template>
                 <div class="ms-3">
                   <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
                   <span class="text-muted">{{member.email}}</span>

@@ -36,7 +36,7 @@ export class MemberService {
       formData,httpOptions).toPromise();
   }
 
-  getMemeberById(id: string): Promise<Member> {
+  getMemberById(id: string): Promise<Member> {
     return this.httpClient
       .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/' + id)
       .toPromise();
@@ -46,14 +46,14 @@ export class MemberService {
      return this.httpClient.delete<void>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id).toPromise();
   }
 
-  getAllMemebers(): Promise<Member[]> {
+  getAllMembers(): Promise<Member[]> {
 
     return this.httpClient
       .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/membres')
       .toPromise();
   }
 
-  getMemeberByEmail(email: string) {
+  getMemberByEmail(email: string) {
     const params = new HttpParams().set("email",email);
     return this.httpClient
       .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/search/email',{
@@ -62,10 +62,10 @@ export class MemberService {
       .toPromise();
   }
 
-  getUserPhoto(photo: string) {
-    const params = new HttpParams().set("path",photo);
+  getUserFile(filePath: string) {
+    const params = new HttpParams().set("path",filePath);
     return this.httpClient
-      .get('http://localhost:4200/api/MEMBRE-SERVICE/get-image',{
+      .get('http://localhost:4200/api/MEMBRE-SERVICE/get-file',{
         params,
         responseType:'blob'
       })
