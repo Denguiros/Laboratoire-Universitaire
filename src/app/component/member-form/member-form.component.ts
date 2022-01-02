@@ -62,7 +62,7 @@ export class MemberFormComponent implements OnInit {
           this.memberReceivedByService = member;
           console.log(member);
           this.form.patchValue(member);
-          if (member.grade != null) {
+          if (member.type !== 'etd') {
             $("#type").val("Enseignant");
           } else {
             $("#type").val("Etudiant");
@@ -97,7 +97,9 @@ export class MemberFormComponent implements OnInit {
     formData.append("member", JSON.stringify(memberToSave));
 
     if (memberToSave.id != null) {
-      this.memberService.updateMemberWithFiles(formData, memberToSave.id, memberToSave.type).then(() => this.router.navigate(['/component/members']));
+      this.memberService.updateMemberType(memberToSave.type,memberToSave.id).then(() => {
+        this.memberService.updateMemberWithFiles(formData, memberToSave.id, memberToSave.type).then(() => this.router.navigate(['/component/members']));
+      });
     } else {
       this.memberService
         .saveMember(memberToSave)

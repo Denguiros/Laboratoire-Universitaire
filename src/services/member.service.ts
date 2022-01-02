@@ -15,25 +15,20 @@ export class MemberService {
     if (member.type.valueOf() === "Enseignant") {
       return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant', member).toPromise();
     }
-      return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
+    return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
 
   }
-  updateMember(member: Member): Promise<Member> {
-    if (member.type.valueOf() === "Enseignant") {
-      return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/'+member.id, member).toPromise();
-    }
-    return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/'+member.id, member).toPromise();
-  }
-  updateMemberWithFiles(formData:FormData,id:string,type:string):Promise<Member>{
+
+  updateMemberWithFiles(formData: FormData, id: string, type: string): Promise<Member> {
     const httpOptions = {
       reportProgress: true
     }
     if (type.valueOf() === "Enseignant") {
-      return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/'+id,
-        formData,httpOptions).toPromise();
+      return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/' + id,
+        formData, httpOptions).toPromise();
     }
-    return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/'+id,
-      formData,httpOptions).toPromise();
+    return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant/' + id,
+      formData, httpOptions).toPromise();
   }
 
   getMemberById(id: string): Promise<Member> {
@@ -43,7 +38,7 @@ export class MemberService {
   }
 
   deleteMemberById(id: string): Promise<void> {
-     return this.httpClient.delete<void>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id).toPromise();
+    return this.httpClient.delete<void>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id).toPromise();
   }
 
   getAllMembers(): Promise<Member[]> {
@@ -54,21 +49,32 @@ export class MemberService {
   }
 
   getMemberByEmail(email: string) {
-    const params = new HttpParams().set("email",email);
+    const params = new HttpParams().set("email", email);
     return this.httpClient
-      .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/search/email',{
+      .get<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membre/search/email', {
         params
       })
       .toPromise();
   }
 
   getUserFile(filePath: string) {
-    const params = new HttpParams().set("path",filePath);
+    const params = new HttpParams().set("path", filePath);
     return this.httpClient
-      .get('http://localhost:4200/api/MEMBRE-SERVICE/get-file',{
+      .get('http://localhost:4200/api/MEMBRE-SERVICE/get-file', {
         params,
-        responseType:'blob'
+        responseType: 'blob'
       })
+      .toPromise();
+  }
+
+  updateMemberType(type: string, id: string) {
+    if (type === "Etudiant") {
+      type = "etd";
+    } else {
+      type = "ens";
+    }
+    return this.httpClient
+      .put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id + '/type?type='+type,{})
       .toPromise();
   }
 }

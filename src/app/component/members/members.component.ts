@@ -48,6 +48,23 @@ export class MembersComponent implements OnDestroy, OnInit {
     this.memberService.deleteMemberById(id).then(() => {
       this.memberService.getAllMembers().then((members) => {
         this.members = members;
+        this.members.forEach((member) => {
+          if (member.photo != null) {
+
+            this.memberService.getUserFile(member.photo).then((photo) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(photo);
+              // @ts-ignore
+              reader.onloadend = () => {
+
+                // just putting the data url to img element
+                // @ts-ignore
+                document.querySelector('#image' + member.id).src = reader.result;
+              }
+              console.log(photo);
+            });
+          }
+        })
       });
     });
   }
