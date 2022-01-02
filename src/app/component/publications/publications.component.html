@@ -8,7 +8,7 @@
         <div class="p-3">
           <h4 class="card-title mb-0">Publications</h4>
         </div>
-        <button class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/publication-form">Ajouter Publication</button>
+        <button *ngIf="loggedInUser != null" class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/publication-form">Ajouter Publication</button>
       </div>
       <div class="card-body border-top">
         <!-- Card -->

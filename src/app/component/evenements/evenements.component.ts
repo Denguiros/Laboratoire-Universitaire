@@ -6,6 +6,8 @@ import { CalendarOptions } from '@fullcalendar/angular'; // useful for typecheck
   styleUrls: ['./evenements.component.scss']
 })
 export class EvenementsComponent implements OnInit {
+  // @ts-ignore
+  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
   public calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     initialDate: Date.now(),

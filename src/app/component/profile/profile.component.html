@@ -11,7 +11,7 @@
          <form  class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row">
           <div class="col-3">
-            <img *ngIf="member.photo !=null;else noPhoto" id="image" width="100%">
+            <img *ngIf="member.photo !=null;else noPhoto" id="image" width="150">
             <ng-template #noPhoto>
               <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="150">
             </ng-template>
@@ -44,12 +44,12 @@
               <input id="date" formControlName="date" type="date" class="form-control"/>
               <span class="text-danger"></span>
             </div>
-            <div class="col-md-6" *ngIf="member.type!=='Etudiant'">
-              <label  for="dateInscription" class="control-label">Date Naissance</label>
+            <div class="col-md-6" *ngIf="member.type==='etd'">
+              <label  for="dateInscription" class="control-label">Date Inscription</label>
               <input id="dateInscription" formControlName="dateInscription" type="date" class="form-control"/>
               <span class="text-danger"></span>
             </div>
-            <div class="col-md-6" *ngIf="member.type!=='Etudiant'">
+            <div class="col-md-6" *ngIf="member.type!=='etd'">
               <label  for="etablissement" class="control-label">Etablissement</label>
               <input id="etablissement" formControlName="etablissement" type="text" class="form-control" required/>
               <span class="text-danger"></span>
@@ -58,12 +58,12 @@
               </div>
             </div>
 
-            <div class="col-md-6" *ngIf="member.type!=='Etudiant'">
+            <div class="col-md-6" *ngIf="member.type!=='etd'">
               <label  for="grade" class="control-label">Grade</label>
               <input id="grade" formControlName="grade" type="text" class="form-control"/>
               <span class="text-danger"></span>
             </div>
-            <div class="col-md-6" *ngIf="member.type==='Etudiant'">
+            <div class="col-md-6" *ngIf="member.type==='etd'">
               <label  for="diplome" class="control-label">Diplome</label>
               <input id="diplome" formControlName="diplome" type="text" class="form-control"/>
               <span class="text-danger"></span>

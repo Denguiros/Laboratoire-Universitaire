@@ -8,105 +8,103 @@
         <h4 class="card-title mb-0">Member Management</h4>
       </div>
       <div class="card-body border-top">
-        <form  class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row vertical-gap">
             <div class="col-md-4">
               <label for="nom" class="control-label">Nom</label>
-              <input type="text" id="nom" class="form-control" formControlName="nom" [ngClass]="{'error': submitted && formControls.nom.errors}" required/>
-              <div *ngIf="(formControls.nom?.invalid && (formControls.nom.dirty || formControls.nom.touched)) || submitted">
-                <span  class="text-danger" *ngIf="formControls.nom.errors?.required">Please provide Nom</span>
-                <span  class="text-danger" *ngIf="formControls.nom.errors?.pattern">only provide only lettre</span>
+              <input type="text" id="nom" class="form-control" formControlName="nom"
+                     [ngClass]="{'error': submitted && formControls.nom.errors}" required/>
+              <div
+                *ngIf="(formControls.nom?.invalid && (formControls.nom.dirty || formControls.nom.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.nom.errors?.required">Please provide Nom</span>
+                <span class="text-danger" *ngIf="formControls.nom.errors?.pattern">only provide only lettre</span>
               </div>
             </div>
             <div class="col-md-4">
               <label for="prenom" class="control-label">Prenom</label>
               <input id="prenom" class="form-control" formControlName="prenom" required/>
-              <div *ngIf="(formControls.prenom?.invalid && (formControls.prenom.dirty || formControls.prenom.touched)) || submitted">
-                <span  class="text-danger" *ngIf="formControls.prenom.errors?.required">Please provide Prenom</span>
-                <span  class="text-danger" *ngIf="formControls.prenom.errors?.pattern">Only letters are allowed</span>
+              <div
+                *ngIf="(formControls.prenom?.invalid && (formControls.prenom.dirty || formControls.prenom.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.prenom.errors?.required">Please provide Prenom</span>
+                <span class="text-danger" *ngIf="formControls.prenom.errors?.pattern">Only letters are allowed</span>
               </div>
             </div>
             <div class="col-md-4">
               <label for="email" class="control-label">Email</label>
               <input id="email" class="form-control" type="email" formControlName="email" required/>
-              <div *ngIf="(formControls.email?.invalid && (formControls.email.dirty || formControls.email.touched)) || submitted">
-                <span  class="text-danger" *ngIf="formControls.email.errors?.required">Please provide Email</span>
-                <span  class="text-danger" *ngIf="formControls.email.errors?.pattern">Incorrect mail </span>
+              <div
+                *ngIf="(formControls.email?.invalid && (formControls.email.dirty || formControls.email.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.email.errors?.required">Please provide Email</span>
+                <span class="text-danger" *ngIf="formControls.email.errors?.pattern">Incorrect mail </span>
               </div>
             </div>
             <div class="col-md-4">
-              <label  for="cin" class="control-label">Cin</label>
+              <label for="cin" class="control-label">Cin</label>
               <input id="cin" formControlName="cin" class="form-control" required/>
-              <div *ngIf="(formControls.cin?.invalid && (formControls.cin.dirty || formControls.cin.touched)) || submitted">
-                <span  class="text-danger" *ngIf="formControls.cin.errors?.required">Please provide Cin</span>
-                <span  class="text-danger" *ngIf="formControls.cin.errors?.pattern">Only number</span>
-                <span  class="text-danger" *ngIf="formControls.cin.errors?.maxlength || formControls.cin.errors?.minlength">Please provide 8 number</span>
+              <div
+                *ngIf="(formControls.cin?.invalid && (formControls.cin.dirty || formControls.cin.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.cin.errors?.required">Please provide Cin</span>
+                <span class="text-danger" *ngIf="formControls.cin.errors?.pattern">Only number</span>
+                <span class="text-danger"
+                      *ngIf="formControls.cin.errors?.maxlength || formControls.cin.errors?.minlength">Please provide 8 number</span>
               </div>
             </div>
             <div class="col-md-4">
-              <label  for="dateNaissance" class="control-label">Date Naissance</label>
+              <label for="dateNaissance" class="control-label">Date Naissance</label>
               <input id="dateNaissance" formControlName="date" type="date" class="form-control" required/>
-              <div *ngIf="(formControls.date?.invalid && (formControls.date.dirty || formControls.date.touched)) || submitted">
-                <span  class="text-danger" *ngIf="formControls.date.errors?.required">Please provide date naissance</span>
+              <div
+                *ngIf="(formControls.date?.invalid && (formControls.date.dirty || formControls.date.touched)) || submitted">
+                <span class="text-danger"
+                      *ngIf="formControls.date.errors?.required">Please provide date naissance</span>
               </div>
             </div>
             <div class="col-md-4" style="margin-top: 0.6rem">
               <label class="control-label">Type</label>
-              <select class="form-control" (change)="changetype($event)" formControlName="type">
-                <option value="" disabled>Choose your city</option>
-                <option *ngFor="let type of Type" [Value]="type">{{type}}</option>
-             </select>
-               <div *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">
-                 <span  class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>
-               </div>
-            </div>
-
-
-
-                <div class="col-md-4" *ngIf="formControls.type.value == 'Enseignant'">
-
-                  <label  for="etablissement" class="control-label">Etablissement</label>
-                  <input id="etablissement" formControlName="etablissement" type="text" class="form-control" />
-                      <div *ngIf="(formControls.etablissement?.invalid && (formControls.etablissement.dirty || formControls.etablissement.touched)) || submitted">
-                        <span  class="text-danger" *ngIf="formControls.etablissement.errors?.required">Please provide a valid Etablissement.</span>
-                      </div>
-                </div>
-                <div class="col-md-4"  *ngIf="formControls.type.value == 'Enseignant'">
-                  <label  for="grade" class="control-label">Grade</label>
-                  <input id="grade" formControlName="grade" type="text" class="form-control" />
-                      <div *ngIf="(formControls.grade.invalid && (formControls.grade.dirty || formControls.grade.touched)) || submitted">
-                        <span  class="text-danger" *ngIf="formControls.grade.errors?.required">Please provide grade</span>
-                      </div>
-                </div>
+              <select class="form-control" id="type" formControlName="type">
+              </select>
+              <div
+                *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>
               </div>
-
-
-
-                <div class="col-md-4" *ngIf="formControls.type.value == 'Etudiant'">
-                  <label  for="diplome" class="control-label">Diplome</label>
-                  <input id="diplome" formControlName="diplome" type="text" class="form-control" />
-                  <div *ngIf="(formControls.diplome.invalid && (formControls.diplome.dirty || formControls.diplome.touched)) || submitted">
-                    <span  class="text-danger" *ngIf="formControls.diplome.errors?.required">Please provide diplome</span>
-                  </div>
-                </div>
-                <div class="col-md-4" *ngIf="formControls.type.value == 'Etudiant'">
-                  <label  for="dateInscription" class="control-label">Date Inscription</label>
-                  <input id="dateInscription" formControlName="dateInscription" type="date" class="form-control" />
-                  <div *ngIf="(formControls.dateInscription?.invalid && (formControls.dateInscription.dirty || formControls.dateInscription.touched)) || submitted">
-                    <span  class="text-danger" *ngIf="formControls.dateInscription.errors?.required">Please provide date d'inscription</span>
-                  </div>
-                </div>
-
-
-
-            <div class="col-md-4">
-              <label  for="admin" class="control-label" style="margin-top: 2rem">Is Admin ? &nbsp;</label>
-              <input id="admin" formControlName="admin" type="checkbox" value="true" />
-<!--              <div *ngIf="(formControls.etablissement?.invalid && (formControls.etablissement.dirty || formControls.etablissement.touched)) || submitted">-->
-<!--                <span  class="text-danger" *ngIf="formControls.etablissement.errors?.required">Please provide a valid Etablissement.</span>-->
-<!--              </div>-->
             </div>
+            <div class="col-md-12" *ngIf="form.get('dateInscription') != null">
+              <label for="dateInscription" class="control-label">Date Inscription</label>
+              <input id="dateInscription" formControlName="dateInscription" type="date" class="form-control"/>
+              <div
+                *ngIf="(formControls.dateInscription?.invalid && (formControls.dateInscription.dirty || formControls.dateInscription.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.dateInscription.errors?.required">Please provide date d'inscription</span>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="form.get('etablissement') != null">
 
+              <label for="etablissement" class="control-label">Etablissement</label>
+              <input id="etablissement" formControlName="etablissement" type="text" class="form-control"/>
+              <div
+                *ngIf="(formControls.etablissement?.invalid && (formControls.etablissement.dirty || formControls.etablissement.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.etablissement.errors?.required">Please provide a valid Etablissement.</span>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="form.get('grade') != null">
+              <label for="grade" class="control-label">Grade</label>
+              <input id="grade" formControlName="grade" type="text" class="form-control"/>
+              <div
+                *ngIf="(formControls.grade.invalid && (formControls.grade.dirty || formControls.grade.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.grade.errors?.required">Please provide grade</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="form.get('diplome') != null">
+            <label for="diplome" class="control-label">Diplome</label>
+            <input id="diplome" formControlName="diplome" type="text" class="form-control"/>
+            <div
+              *ngIf="(formControls.diplome.invalid && (formControls.diplome.dirty || formControls.diplome.touched)) || submitted">
+              <span class="text-danger" *ngIf="formControls.diplome.errors?.required">Please provide diplome</span>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="admin" class="control-label" style="margin-top: 2rem">Is Admin ? &nbsp;</label>
+            <input id="admin" formControlName="admin" type="checkbox" value="true"/>
+          </div>
           <div class="form-group" style="margin-top: 2rem">
             <input type="submit" value="{{fromType}}" class="btn btn-primary"/>
           </div>

@@ -10,6 +10,9 @@ import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 })
 export class MembersComponent implements OnDestroy, OnInit {
   members: Member[] = [];
+  // @ts-ignore
+  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
+  loggedInUserIsAdmin : boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -18,6 +21,13 @@ export class MembersComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
     };
     this.getAllMembers();
+    if(this.loggedInUser != null)
+    {
+      if (this.loggedInUser.admin)
+      {
+        this.loggedInUserIsAdmin = true;
+      }
+    }
   }
 
   getAllMembers() {
@@ -31,12 +41,9 @@ export class MembersComponent implements OnDestroy, OnInit {
             reader.readAsDataURL(photo);
             // @ts-ignore
             reader.onloadend = () => {
-
-              // just putting the data url to img element
               // @ts-ignore
               document.querySelector('#image' + member.id).src = reader.result;
             }
-            console.log(photo);
           });
         }
       })

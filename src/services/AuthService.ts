@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
+import {Member} from "../models/member.model";
 
 
 @Injectable({
@@ -11,11 +12,11 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "
 export class AuthService implements CanActivate {
   public userClaims: any;
   public userClaims$ = new Subject<any>();
-
+  public loggedInUser: BehaviorSubject<Member> = new BehaviorSubject<Member>({} as Member);
   constructor(public afAuth: AngularFireAuth, public router: Router) {
   }
-
   getUserClaims(): Promise<any> {
+
     return new Promise<any>((resolve, reject) => {
       this.afAuth.onAuthStateChanged((user) => {
         if (!!user) {

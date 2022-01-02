@@ -8,7 +8,9 @@
         <div class="p-3">
           <h4 class="card-title mb-0">Membres</h4>
         </div>
-        <button class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/member-form">Ajouter Membre</button>
+        <button *ngIf="loggedInUserIsAdmin" class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/member-form">Ajouter
+          Membre
+        </button>
       </div>
       <div class="card-body border-top">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -26,9 +28,11 @@
             <td>{{member.id}}</td>
             <td>
               <div class="d-flex align-items-center">
-                <img *ngIf="member.photo !=null;else noPhoto" id="image{{member.id}}" alt="user" width="45" class="rounded-circle">
+                <img *ngIf="member.photo !=null;else noPhoto" id="image{{member.id}}" alt="user" width="45"
+                     class="rounded-circle">
                 <ng-template #noPhoto>
-                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45" class="rounded-circle">
+                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45"
+                       class="rounded-circle">
                 </ng-template>
                 <div class="ms-3">
                   <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
@@ -38,34 +42,41 @@
             </td>
             <td>{{member.prenom}}</td>
             <td>{{member.nom}}</td>
-            <td><div class="btn-group" ngbDropdown>
-              <button type="button" class="btn btn-primary
+            <td>
+              <div class="btn-group" ngbDropdown>
+                <button type="button" class="btn btn-primary
                 dropdown-toggle-icon-none
                 d-flex
-                align-items-center"               id="dropdown1"
-                      ngbDropdownToggle>
+                align-items-center" id="dropdown1"
+                        ngbDropdownToggle>
                                         <span class="icon icon-sm">
                                             <span class="fas fa-ellipsis-h icon-dark"></span>
                                         </span>
-                <span class="sr-only">Toggle Dropdown</span>
-              </button>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
 
-              <ul ngbDropdownMenu aria-labelledby="dropdown1">
-                <li>
-                  <a class="dropdown-item text-black btn-labeled"  routerLink="/component/member-show/{{member.id}}" ><span class="btn-label"><i class="fa fa-eye"></i></span> Show</a></li>
-                <li><a class="dropdown-item text-black" routerLink="/component/member-form/{{member.id}}/edit"><span class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
+                <ul ngbDropdownMenu aria-labelledby="dropdown1">
+                  <li>
+                    <a class="dropdown-item text-black btn-labeled"
+                       routerLink="/component/member-show/{{member.id}}"><span class="btn-label"><i
+                      class="fa fa-eye"></i></span> Show</a></li>
+                  <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-black" routerLink="/component/member-form/{{member.id}}/edit"><span
+                    class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
                   text: 'You will not be able to revert this!',
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonText: 'Yes, delete it!',
                   reverseButtons: true,
                   cancelButtonText: 'No, cancel!', showCancelButton: true }"
-                       (confirm)="onRemove(member.id)"
-                ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
-              </ul>
-            </div></td>
+                         (confirm)="onRemove(member.id)"
+                  ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
+                </ul>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>

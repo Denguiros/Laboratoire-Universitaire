@@ -38,11 +38,7 @@ export class ProfileComponent implements OnInit {
         placeholder: "Select a type"
       });
       this.member = member;
-      if (member.diplome != null) {
-        this.member.type = "Etudiant";
-      } else {
-        this.member.type = "Enseignant";
-      }
+      console.log(this.member)
       if (member.photo != null) {
 
         this.memberService.getUserFile(this.member.photo).then((photo) => {

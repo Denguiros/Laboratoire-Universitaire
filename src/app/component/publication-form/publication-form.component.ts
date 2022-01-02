@@ -8,6 +8,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./publication-form.component.scss']
 })
 export class PublicationFormComponent implements OnInit {
+  // @ts-ignore
+  loggedInUser = JSON.parse(localStorage.getItem("user"));
   submitted = false;
   form = this.formBuilder.group({
     signature: ['', Validators.required]

@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullComponent } from './layouts/full/full.component';
 import {LoginComponent} from "./login/login.component";
 import {AuthService} from "../services/AuthService";
+import {AdminAuthorization} from "../services/AdminAuthorization";
 
 export const Approutes: Routes = [
   {
@@ -14,7 +15,7 @@ export const Approutes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
-        canActivate:[AuthService]
+        canActivate:[AdminAuthorization]
       },
       {
         path: 'component',
@@ -29,6 +30,6 @@ export const Approutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/starter'
+    redirectTo: '/login'
   }
 ];

@@ -23,7 +23,7 @@ export class MemberService {
     const httpOptions = {
       reportProgress: true
     }
-    if (type.valueOf() === "Enseignant") {
+    if (type.valueOf() === "Enseignant" || type.valueOf() === "ens") {
       return this.httpClient.put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant/' + id,
         formData, httpOptions).toPromise();
     }

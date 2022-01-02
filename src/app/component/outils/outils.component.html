@@ -8,7 +8,7 @@
         <div class="p-3">
           <h4 class="card-title mb-0">Outils</h4>
         </div>
-        <button class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/outil-form">Ajouter Outil</button>
+        <button *ngIf="loggedInUser != null" class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/outil-form">Ajouter Outil</button>
       </div>
       <div class="card-body border-top">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">

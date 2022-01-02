@@ -6,7 +6,7 @@
   <!-- ============================================================== -->
   <!-- User profile and search -->
   <!-- ============================================================== -->
-  <li class="nav-item" ngbDropdown placement="bottom-end">
+  <li class="nav-item" ngbDropdown placement="bottom-end" *ngIf="loggedInUser.id != null;else login" >
     <a
       ngbDropdownToggle
       class="nav-link waves-effect waves-dark pro-pic"
@@ -15,20 +15,39 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
+      <img *ngIf="loggedInUser.photo != null; else noPhoto" id="img" width="25" class="rounded-circle"/>
+      <ng-template #noPhoto>
       <img
         src="assets/images/users/user1.jpg"
         alt="user"
         class="rounded-circle"
         width="31"
-      />
-      <span class="ms-2">Steve Jobs</span>
+      /></ng-template>
+       <span class="ms-2" *ngIf="loggedInUser.nom != null && loggedInUser.prenom != null; else email"> {{loggedInUser.prenom}} {{loggedInUser.nom}}</span>
+      <ng-template #email>
+
+       <span class="ms-2"> {{loggedInUser.email}}</span>
+      </ng-template>
     </a>
-    <div class="dropdown-menu-right" ngbDropdownMenu>
+    <div class="dropdown-menu-right" ngbDropdownMenu >
       <a class="dropdown-item" routerLink="/component/member-show/{{loggedInUser.id}}"> My Profile</a>
 
       <a class="dropdown-item"  (click)="loggout()" > Logout</a>
     </div>
   </li>
+  <ng-template #login>
+    <li>
+      <a
+        class="nav-link waves-effect waves-dark pro-pic"
+        href="javascript:void(0)"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        routerLink="/login"
+      >
+        Login</a>
+    </li>
+  </ng-template>
   <!-- ============================================================== -->
   <!-- User profile and search -->
   <!-- ============================================================== -->

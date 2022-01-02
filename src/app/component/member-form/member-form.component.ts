@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import {FormControl, FormGroup, Validators, FormBuilder, FormArray} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MemberService} from "../../../services/member.service";
 import {Member} from "../../../models/member.model";
@@ -12,18 +12,16 @@ import {Select2OptionData} from "ng-select2";
   styleUrls: ['./member-form.component.scss'],
 })
 export class MemberFormComponent implements OnInit {
-  // type Names
-  Type: any = ['Enseignant', 'Etudiant']
   submitted = false;
   currentId: string = '';
-  memberReceivedByService: any;
   fromType = "Add";
+  member = {} as Member;
 
   constructor(
     private memberService: MemberService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {
   }
 
@@ -38,92 +36,107 @@ export class MemberFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.form.get('type')?.valueChanges.subscribe(data => {
-      if(data === 'Enseignant'){
-        this.form.addControl('grade', new FormControl('', Validators.required));
-        this.form.addControl('etablissement', new FormControl('', Validators.required));
-
-        this.form.removeControl('dateInscription');
-        this.form.removeControl('diplome');
-      }
-      if(data === 'Etudiant'){
-        this.form.addControl('dateInscription', new FormControl('', Validators.required));
-        this.form.addControl('diplome', new FormControl('', Validators.required));
-
-        this.form.removeControl('grade');
-        this.form.removeControl('etablissement');
-
-      }
-    })
-
-
     $("#type").select2({
       theme: "classic",
     });
+    const etudiant = {
+      id: 'Etudiant',
+      text: 'Etudiant'
+    };
+    const enseignant = {
+      id: 'Enseignant',
+      text: 'Enseignant'
+    };
+    const etudiantOption = new Option(etudiant.text, etudiant.id, false, false);
+    const enseignantOption = new Option(enseignant.text, enseignant.id, false, false);
+    const self = this;
+    $('#type').append(etudiantOption).trigger('change');
+    $('#type').append(enseignantOption).trigger('change');
+
+    // tslint:disable-next-line:only-arrow-functions
+    $('#type').on("select2:select", function(e) {
+      const data = $('#type').select2('data')[0].id;
+      console.log(data);
+      if (data === 'Enseignant') {
+        self.form.addControl('grade', new FormControl('', Validators.required));
+        self.form.addControl('etablissement', new FormControl('', Validators.required));
+        self.form.removeControl('dateInscription');
+        self.form.removeControl('diplome');
+      }
+      if (data === 'Etudiant') {
+        self.form.addControl('dateInscription', new FormControl('', Validators.required));
+        self.form.addControl('diplome', new FormControl('', Validators.required));
+        console.log(self.form);
+        self.form.removeControl('grade');
+        self.form.removeControl('etablissement');
+      }
+    });
+
+
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.memberService.getMemberById(this.currentId).then((member) => {
 
         if (member.id != null) {
           this.fromType = "Update";
-          this.memberReceivedByService = member;
-          console.log(member);
-          this.form.patchValue(member);
+          this.member = member;
+
           if (member.type !== 'etd') {
             $("#type").val("Enseignant");
+            self.form.addControl('grade', new FormControl('', Validators.required));
+            self.form.addControl('etablissement', new FormControl('', Validators.required));
           } else {
             $("#type").val("Etudiant");
+            self.form.addControl('dateInscription', new FormControl('', Validators.required));
+            self.form.addControl('diplome', new FormControl('', Validators.required));
           }
           $("#type").trigger("change");
+          this.form.patchValue(member);
         } else {
           this.router.navigate(["/component/members"])
         }
       });
 
     }
+    else
+    {
+      self.form.addControl('dateInscription', new FormControl('', Validators.required));
+      self.form.addControl('diplome', new FormControl('', Validators.required));
+    }
 
-  }
-   // Choose city using select dropdown
-   changetype(e:any) {
-    this.form.get('type')?.setValue(e.target.value, {
-      onlySelf: true
-    })
   }
 
   onSubmit(): void {
 
     this.submitted = true;
-     if(!this.form.valid) {
-      alert('Please fill all the required fields to create a member!') ;
-     } else {
-    const memberToSave: Member = {
-      ...this.memberReceivedByService,
-      ...this.form.value,
-    };
-    console.log(memberToSave);
-    memberToSave.type = $('#type').select2('data')[0].id;
-    if (memberToSave.type === "Etudiant") {
-      memberToSave.dateInscription = new Date().toISOString().slice(0, 10);
-    }
-    memberToSave.cv = "";
-    memberToSave.photo = "";
-    const formData = new FormData();
-    formData.append("cv", memberToSave.cv);
-    formData.append("photo", memberToSave.photo);
-    formData.append("member", JSON.stringify(memberToSave));
-
-    if (memberToSave.id != null) {
-      this.memberService.updateMemberType(memberToSave.type,memberToSave.id).then(() => {
-        this.memberService.updateMemberWithFiles(formData, memberToSave.id, memberToSave.type).then(() => this.router.navigate(['/component/members']));
-      });
+    if (!this.form.valid) {
+      alert('Please fill all the required fields to create a member!');
     } else {
-      this.memberService
-        .saveMember(memberToSave)
-        .then(() => this.router.navigate(['/component/members']));
-      console.log(this.form);
+      const memberToSave: Member = {
+        ...this.member,
+        ...this.form.value,
+      };
+      console.log(memberToSave);
+      memberToSave.type = $('#type').select2('data')[0].id;
+      memberToSave.cv = "";
+      memberToSave.photo = "";
+      const formData = new FormData();
+      formData.append("cv", memberToSave.cv);
+      formData.append("photo", memberToSave.photo);
+      formData.append("member", JSON.stringify(memberToSave));
 
+      if (memberToSave.id != null) {
+        this.memberService.updateMemberType(memberToSave.type, memberToSave.id).then(() => {
+          this.memberService.updateMemberWithFiles(formData, memberToSave.id, memberToSave.type).then(() => this.router.navigate(['/component/members']));
+        });
+      } else {
+        this.memberService
+          .saveMember(memberToSave)
+          .then(() => this.router.navigate(['/component/members']));
+        console.log(this.form);
+
+      }
     }
-  }
 
   }
 

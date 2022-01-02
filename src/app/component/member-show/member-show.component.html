@@ -21,7 +21,7 @@
                     <h4>{{ member.nom }} {{ member.prenom }}</h4>
                     <p class="text-primary mb-1">{{ member.type }}</p>
                     <p class="text-muted font-size-sm">{{ member.etablissement }}</p>
-                    <a class="btn btn-primary" id="cv">CV</a>
+                    <a class="btn btn-primary" id="cv" *ngIf="member.cv != null">CV</a>
                     <!--<button class="btn btn-outline-primary" routerLink="/component/member-edit">Edit</button>-->
                   </div>
                 </div>
