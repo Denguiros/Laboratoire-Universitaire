@@ -1,4 +1,4 @@
-import {Member} from './../../../models/member.model';
+import {Member} from '../../../models/member.model';
 import {Component, OnInit} from '@angular/core';
 import {MemberService} from "../../../services/member.service";
 import {ActivatedRoute, Router} from "@angular/router";

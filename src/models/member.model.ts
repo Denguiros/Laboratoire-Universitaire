@@ -1,5 +1,6 @@
 export interface Member {
   id: string;
+  admin:string;
   cin: string;
   nom: string;
   prenom: string;
