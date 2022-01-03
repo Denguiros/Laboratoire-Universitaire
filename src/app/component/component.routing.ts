@@ -64,7 +64,7 @@ export const ComponentsRoutes: Routes = [
         component: OutilsComponent
       },
       {
-        path: 'outils-show/:id',
+        path: 'outil-show/:id',
         component: OutilsShowComponent
       }, {
         path: 'outil-form',
@@ -85,6 +85,7 @@ export const ComponentsRoutes: Routes = [
         component: ProfileComponent,
         canActivate: [LoggedInUserAuthorization]
       },
+
 
     ]
   }

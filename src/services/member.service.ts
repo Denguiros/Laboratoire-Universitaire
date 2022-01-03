@@ -15,7 +15,7 @@ export class MemberService {
     if (member.type.valueOf() === "Enseignant") {
       return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant', member).toPromise();
     }
-    return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
+      return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
 
   }
 
