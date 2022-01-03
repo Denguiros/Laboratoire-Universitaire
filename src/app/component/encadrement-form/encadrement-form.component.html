@@ -6,25 +6,22 @@
     <div class="card w-100">
       <div class="d-flex justify-content-between ">
         <div class="p-3">
-          <h4 class="card-title mb-0">Membres</h4>
+          <h4 class="card-title mb-0">Etudiants</h4>
         </div>
-        <button *ngIf="loggedInUserIsAdmin" class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/member-form">Ajouter
-          Membre
-        </button>
       </div>
       <div class="card-body border-top">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"  class="row-border hover" >
           <thead>
           <tr>
             <th>ID</th>
             <th>General Infos</th>
-            <th>Type</th>
             <th>Date Naissance</th>
+            <th>Encadré</th>
             <th>Actions</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let member of members">
+          <tr *ngFor="let member of etudiants">
             <td>{{member.id}}</td>
             <td>
               <div class="d-flex align-items-center">
@@ -40,9 +37,11 @@
                 </div>
               </div>
             </td>
-            <td *ngIf="member.type==='etd'">Etudiant</td>
-            <td *ngIf="member.type==='ens'">Enseignant</td>
             <td>{{member.date}}</td>
+            <td *ngIf="etudiantsDeEnseignant.includes(member,0);else non">Oui</td>
+            <ng-template #non>
+            <td>Non</td>
+            </ng-template>
             <td>
               <div class="btn-group" ngbDropdown>
                 <button type="button" class="btn btn-primary
@@ -61,20 +60,27 @@
                     <a class="dropdown-item text-black btn-labeled"
                        routerLink="/component/member-show/{{member.id}}"><span class="btn-label"><i
                       class="fa fa-eye"></i></span> Show</a></li>
-                  <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-black" routerLink="/component/member-form/{{member.id}}/edit"><span
-                    class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                  <li *ngIf="etudiantsNonEncadrees.includes(member,0)"><a class="dropdown-item text-black" href="#" [swal]="{ title: 'Etes vous sûr?',
+                  text: 'Encadrer cet etudiant ?',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Oui',
+                  reverseButtons: true,
+                  cancelButtonText: 'Non', showCancelButton: true }"
+                                                                          (confirm)="onAffecter(member.id)"
+                  ><span class="btn-label"><i class="fa fa-edit"></i></span>Encadrer</a></li>
                   <li>
                     <hr class="dropdown-divider">
                   </li>
-                  <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
-                  text: 'You will not be able to revert this!',
+                  <li *ngIf="etudiantsDeEnseignant.includes(member,0)"><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Etes vous sûr?',
+                  text: 'Vous désaffecter de cet étudiant?',
                   icon: 'warning',
                   showCancelButton: true,
-                  confirmButtonText: 'Yes, delete it!',
+                  confirmButtonText: 'Oui',
                   reverseButtons: true,
-                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
-                         (confirm)="onRemove(member.id)"
-                  ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
+                  cancelButtonText: 'Non', showCancelButton: true }"
+                                                     (confirm)="onDesaffecte(member.id)"
+                  ><span class="btn-label"><i class="fa fa-trash"></i></span>Ne plus Encadrer</a></li>
                 </ul>
               </div>
             </td>

@@ -77,4 +77,28 @@ export class MemberService {
       .put<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/' + id + '/type?type='+type,{})
       .toPromise();
   }
+
+  getEtudiantsNonEncadres() {
+    return this.httpClient
+      .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/etudiantsNonEncadrees')
+      .toPromise();
+  }
+
+  getEtudiantsDeEnseignant(id: string) {
+    return this.httpClient
+      .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/enseignant/'+id+'/etudiants')
+      .toPromise();
+  }
+
+  desaffecterEtudiant(id: string) {
+    return this.httpClient
+      .delete('http://localhost:4200/api/MEMBRE-SERVICE/etudiant/' + id + '/desaffecter')
+      .toPromise()
+  }
+
+  affecterEtudiant(idEtd: string,idEns:string) {
+    return this.httpClient
+      .post('http://localhost:4200/api/MEMBRE-SERVICE/etudiant/' + idEtd + '/affecter/'+idEns,null)
+      .toPromise()
+  }
 }

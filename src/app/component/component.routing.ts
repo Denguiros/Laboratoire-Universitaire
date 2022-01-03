@@ -13,6 +13,7 @@ import {MemberShowComponent} from './member-show/member-show.component';
 import {OutilsComponent} from "./outils/outils.component";
 import {AdminAuthorization} from "../../services/AdminAuthorization";
 import {LoggedInUserAuthorization} from "../../services/LoggedInUserAuthorization";
+import {EncadrementFormComponent} from "./encadrement-form/encadrement-form.component";
 
 
 export const ComponentsRoutes: Routes = [
@@ -47,6 +48,11 @@ export const ComponentsRoutes: Routes = [
       {
         path: 'evenement-form',
         component: EvenementFormComponent,
+        canActivate: [LoggedInUserAuthorization]
+      },
+      {
+        path: 'encadrement-form/:id/edit',
+        component: EncadrementFormComponent,
         canActivate: [LoggedInUserAuthorization]
       },
       {

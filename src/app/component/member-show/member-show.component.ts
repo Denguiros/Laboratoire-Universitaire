@@ -1,7 +1,8 @@
 import {Member} from '../../../models/member.model';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MemberService} from "../../../services/member.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 
 @Component({
@@ -13,6 +14,7 @@ export class MemberShowComponent implements OnInit {
   member = {} as Member;
   canEdit = false;
   photo = {};
+  etudiantsEncadrees = [] as Member[];
   // @ts-ignore
   loggedInUser = JSON.parse(localStorage.getItem("user"));
 
@@ -23,12 +25,13 @@ export class MemberShowComponent implements OnInit {
   currentId = '';
 
   ngOnInit(): void {
+
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.memberService.getMemberById(this.currentId).then((member) => {
         if (member.id != null) {
           this.member = member;
-          if (member.photo != null) {
+          if (member.photo !== '') {
             this.memberService.getUserFile(this.member.photo).then((photo) => {
               const reader = new FileReader();
               reader.readAsDataURL(photo);
@@ -41,7 +44,7 @@ export class MemberShowComponent implements OnInit {
             });
 
           }
-          if (member.cv != null) {
+          if (member.cv !== '') {
             this.memberService.getUserFile(this.member.cv).then((cv) => {
               const file = new Blob([cv], {
                 type: 'application/pdf'
@@ -56,15 +59,35 @@ export class MemberShowComponent implements OnInit {
           if (this.member.email === this.loggedInUser.email) {
             this.canEdit = true;
           }
-        }
-        else {
+          if (this.member.type === "Enseignant") {
+
+            this.memberService.getEtudiantsDeEnseignant(this.currentId).then((members) => {
+              this.etudiantsEncadrees = members;
+              this.etudiantsEncadrees.forEach((member) => {
+                if (member.photo !== '') {
+                  this.memberService.getUserFile(member.photo).then((photo) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(photo);
+                    // @ts-ignore
+                    reader.onloadend = () => {
+                      // @ts-ignore
+                      document.querySelector('#image' + member.id).src = reader.result;
+                    }
+                  });
+                }
+              })
+            });
+          }
+        } else {
           this.router.navigate(["/component/members"]);
         }
       });
+
     } else {
       this.router.navigate(["/component/members"]);
     }
   }
+
 }
 
 

@@ -2,129 +2,177 @@
   <div class="col-lg-12">
     <div class="card w-100">
       <div class="d-flex justify-content-between">
-      <div class="p-3">
-        <h4 class="card-title mb-0">Membre</h4>
-      </div>
+        <div class="p-3">
+          <h4 class="card-title mb-0">Membre</h4>
+        </div>
         <button class="btn btn-outline-primary" *ngIf="canEdit" routerLink="/component/profile">Edit</button>
       </div>
-        <div class="row gutters-sm">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex flex-column align-items-center text-center">
-                  <img *ngIf="member.photo !=null;else noPhoto" alt="Admin" id="image" class="rounded-circle" width="100">
-                  <ng-template #noPhoto>
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img *ngIf="member.photo !='';else noPhoto" alt="Admin" id="image" class="rounded-circle" width="100">
+                <ng-template #noPhoto>
 
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-                  </ng-template>
-                  <div class="mt-3">
-                    <h4>{{ member.nom }} {{ member.prenom }}</h4>
-                    <p class="text-primary mb-1">{{ member.type }}</p>
-                    <p class="text-muted font-size-sm">{{ member.etablissement }}</p>
-                    <a class="btn btn-primary" id="cv" *ngIf="member.cv != null">CV</a>
-                    <!--<button class="btn btn-outline-primary" routerLink="/component/member-edit">Edit</button>-->
-                  </div>
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                       width="150">
+                </ng-template>
+                <div class="mt-3">
+                  <h4>{{ member.nom }} {{ member.prenom }}</h4>
+                  <p class="text-primary mb-1">{{ member.type }}</p>
+                  <p class="text-muted font-size-sm">{{ member.etablissement }}</p>
+                  <a class="btn btn-primary" id="cv" *ngIf="member.cv !== ''">CV</a>
                 </div>
               </div>
             </div>
-
           </div>
-          <div class="col-md-8">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Nom Complet</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.nom }} {{ member.prenom }}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Email</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.email }}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">CIN</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.cin }}
-                  </div>
-                </div>
-                <hr>
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Date de Naissance</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.date }}
-                  </div>
-                </div>
-                <hr>
-                <div class="row" *ngIf="member.diplome != null">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Diplome</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.diplome }}
-                  </div>
-                  <hr>
-                </div>
-                <div class="row" *ngIf="member.dateInscription != null">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Date d'Inscription</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.dateInscription }}
-                  </div>
-                  <hr>
-                </div>
-                <div class="row" *ngIf="member.encadreur != null">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Encadreur</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.encadreur }}
-                  </div>
-                  <hr>
-                </div>
-                <div class="row" *ngIf="member.grade != null">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Grade</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.grade }}
-                  </div>
-                  <hr>
-                </div>
-                <div class="row" *ngIf="member.etablissement != null">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Etablissement</h6>
-                  </div>
-                  <div class="col-sm-9 text-primary">
-                    {{ member.etablissement }}
-                  </div>
-                  <hr>
-                </div>
 
-
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Nom Complet</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.nom }} {{ member.prenom }}
+                </div>
               </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.email }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">CIN</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.cin }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Date de Naissance</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.date }}
+                </div>
+              </div>
+              <hr>
+              <div class="row" *ngIf="member.diplome != null">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Diplome</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.diplome }}
+                </div>
+                <hr>
+              </div>
+              <div class="row" *ngIf="member.dateInscription != null">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Date d'Inscription</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.dateInscription }}
+                </div>
+                <hr>
+              </div>
+              <div class="row" *ngIf="member.encadreur != null">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Encadreur</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.encadreur }}
+                </div>
+                <hr>
+              </div>
+              <div class="row" *ngIf="member.grade != null">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Grade</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.grade }}
+                </div>
+                <hr>
+              </div>
+              <div class="row" *ngIf="member.etablissement != null">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Etablissement</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ member.etablissement }}
+                </div>
+                <hr>
+              </div>
+
+
             </div>
-
-
-
-
-
           </div>
-        </div>
-        </div>
 
+
+        </div>
       </div>
+    </div>
+
   </div>
+</div>
+
+<div class="row" *ngIf="member.type=='Enseignant'">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Encadrement</h4>
+        </div>
+        <button *ngIf="canEdit" class="btn btn-outline-primary btn-sm" type="button"
+                routerLink="/component/encadrement-form/{{member.id}}/edit">Modifier la liste
+        </button>
+      </div>
+      <div class="card-body border-top">
+        <table datatable class="row-border hover" *ngIf="etudiantsEncadrees.length >0">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>General Infos</th>
+            <th>First name</th>
+            <th>Last name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let member of etudiantsEncadrees">
+            <td>{{member.id}}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img *ngIf="member.photo !='';else noPhoto" id="image{{member.id}}" alt="user" width="45"
+                     class="rounded-circle">
+                <ng-template #noPhoto>
+                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45"
+                       class="rounded-circle">
+                </ng-template>
+                <div class="ms-3">
+                  <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
+                  <span class="text-muted">{{member.email}}</span>
+                </div>
+              </div>
+            </td>
+            <td>{{member.prenom}}</td>
+            <td>{{member.nom}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

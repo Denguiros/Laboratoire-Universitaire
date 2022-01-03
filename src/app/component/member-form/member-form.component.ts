@@ -31,8 +31,8 @@ export class MemberFormComponent implements OnInit {
     prenom: ["", [Validators.required, Validators.pattern("^[a-zA-Z ]*$")]],
     email: ["", [Validators.required, Validators.pattern("[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]],
     date: ["", [Validators.required]],
-    type: ["", [Validators.required]],
-    admin: ["", [Validators.required]],
+    type: [""],
+    admin: [""],
   });
 
   ngOnInit(): void {
@@ -56,7 +56,6 @@ export class MemberFormComponent implements OnInit {
     // tslint:disable-next-line:only-arrow-functions
     $('#type').on("select2:select", function(e) {
       const data = $('#type').select2('data')[0].id;
-      console.log(data);
       if (data === 'Enseignant') {
         self.form.addControl('grade', new FormControl('', Validators.required));
         self.form.addControl('etablissement', new FormControl('', Validators.required));
@@ -66,7 +65,6 @@ export class MemberFormComponent implements OnInit {
       if (data === 'Etudiant') {
         self.form.addControl('dateInscription', new FormControl('', Validators.required));
         self.form.addControl('diplome', new FormControl('', Validators.required));
-        console.log(self.form);
         self.form.removeControl('grade');
         self.form.removeControl('etablissement');
       }
@@ -116,7 +114,6 @@ export class MemberFormComponent implements OnInit {
         ...this.member,
         ...this.form.value,
       };
-      console.log(memberToSave);
       memberToSave.type = $('#type').select2('data')[0].id;
       memberToSave.cv = "";
       memberToSave.photo = "";

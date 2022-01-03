@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MemberService} from "../../../services/member.service";
 import {Member} from "../../../models/member.model";
 import {Subject} from "rxjs";
-import {SwalComponent} from "@sweetalert2/ngx-sweetalert2";
 
 @Component({
   selector: 'app-members',
@@ -34,8 +33,7 @@ export class MembersComponent implements OnDestroy, OnInit {
     this.memberService.getAllMembers().then((members) => {
       this.members = members;
       this.members.forEach((member) => {
-        if (member.photo != null) {
-
+        if (member.photo !== '') {
           this.memberService.getUserFile(member.photo).then((photo) => {
             const reader = new FileReader();
             reader.readAsDataURL(photo);
