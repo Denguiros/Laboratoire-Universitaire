@@ -30,46 +30,12 @@ export class EvenementFormComponent implements OnInit {
   ngOnInit(): void {
     $("#type").select2({
       theme:"classic",
-      placeholder: "Select a type"
     });
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
-      this.evenementService.getEvenementById(this.currentId).then((evenement) => {
-        this.EvenementReceivedByService = evenement;
-        console.log('Found evenement');
-        console.log(evenement);
-        this.initForm(evenement);
-      });
     } else {
-      this.initForm(null);
     }
   }
-
-  onSubmit(): void {
-    this.submitted = true;
-    if(!this.form.valid) {
-      alert('Please fill all the required fields to create a evenement!') ;
-    } else {
-      console.log(this.form.value);
-
-    }
-    /*const memberToSave: Member = {
-      ...this.EvenementReceivedByService,
-      ...this.form.value,
-    };
-    memberToSave.type = $('#type').select2('data')[0].id;
-    console.log(memberToSave);
-    this.Even
-      .saveMember(memberToSave,memberToSave.type)
-      .then(() => this.router.navigate(['./members']));*/
-  }
-
-  initForm(evenement: Evenement | null): void {
-    this.form = new FormGroup({
-      titre: new FormControl(evenement?.titre, [Validators.required]),
-      date: new FormControl(evenement?.date, [Validators.required]),
-      lieu: new FormControl(evenement?.lieu, [Validators.required]),
-
-    });
-  }
+  onSubmit()
+  {}
 }

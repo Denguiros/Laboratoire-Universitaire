@@ -15,7 +15,7 @@
           <tr>
             <th>ID</th>
             <th>General Infos</th>
-            <th>Date Naissance</th>
+            <th>Diplome</th>
             <th>Encadré</th>
             <th>Actions</th>
           </tr>
@@ -37,7 +37,7 @@
                 </div>
               </div>
             </td>
-            <td>{{member.date}}</td>
+            <td>{{member.diplome}}</td>
             <td *ngIf="etudiantsDeEnseignant.includes(member,0);else non">Oui</td>
             <ng-template #non>
             <td>Non</td>

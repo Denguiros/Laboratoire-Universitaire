@@ -6,8 +6,6 @@ import {Member} from "../models/member.model";
   providedIn: 'root',
 })
 export class MemberService {
-  public tab: Member[] = [];
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -16,7 +14,6 @@ export class MemberService {
       return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/enseignant', member).toPromise();
     }
     return this.httpClient.post<Member>('http://localhost:4200/api/MEMBRE-SERVICE/membres/etudiant', member).toPromise();
-
   }
 
   updateMemberWithFiles(formData: FormData, id: string, type: string): Promise<Member> {

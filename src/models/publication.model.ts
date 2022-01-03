@@ -1,4 +1,4 @@
-interface Publication {
+export interface Publication {
   id : string;
   type : string;
   titre : string;

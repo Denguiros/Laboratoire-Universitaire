@@ -8,12 +8,57 @@
         <h4 class="card-title mb-0">Publication Management</h4>
       </div>
       <div class="card-body border-top">
-        <angular-editor id="editor" (ngModelChange)="onChange($event)" [config]="config"[placeholder]="'Enter text here...'" (blur)="onBlur($event)" [(ngModel)]="htmlContent"></angular-editor>
+        <form class="needs-validation" enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row vertical-gap">
+            <div class="col-md-4">
+              <label for="titre" class="control-label">Titre</label>
+              <input type="text" id="titre" class="form-control" formControlName="titre"
+                     [ngClass]="{'error': submitted && formControls.nom.errors}"/>
+<!--              <div-->
+<!--                *ngIf="(formControls.titre?.invalid && (formControls.titre.dirty || formControls.titre.touched)) || submitted">-->
+<!--                <span class="text-danger" *ngIf="formControls.titre.errors?.required">Please provide Titre</span>-->
+<!--                <span class="text-danger" *ngIf="formControls.titre.errors?.pattern">only provide letters</span>-->
+<!--              </div>-->
+            </div>
+            <div class="col-md-4">
+              <label for="type" class="control-label">Type</label>
+              <input id="type" class="form-control" formControlName="type" required/>
+<!--              <div-->
+<!--                *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">-->
+<!--                <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>-->
+<!--                <span class="text-danger" *ngIf="formControls.type.errors?.pattern">Only letters are allowed</span>-->
+<!--              </div>-->
+            </div>
+            <div class="col-md-4">
+              <label for="date" class="control-label">Date</label>
+              <input id="date" formControlName="date" type="date" class="form-control"/>
+<!--              <div-->
+<!--                *ngIf="(formControls.date?.invalid && (formControls.date.dirty || formControls.date.touched)) || submitted">-->
+<!--                <span class="text-danger"-->
+<!--                      *ngIf="formControls.date.errors?.required">Please provide date</span>-->
+<!--              </div>-->
+            </div>
+            <div class="col-md-4">
+              <label for="sourcePdf" class="control-label">PDF</label>
+              <input type="file" id="sourcePdf" class="form-control" (change)="onFileSelect($event,'sourcePdf')"/>
+<!--              <div-->
+<!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
+<!--                <span class="text-danger"-->
+<!--                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>-->
+<!--              </div>-->
+            </div>
+            <div class="form-group" style="margin-top: 2rem">
+              <input type="submit" value="{{fromType}}" class="btn btn-primary"/>
+            </div>
+          </div>
+        </form>
       </div>
-      <div *ngIf="(m.signature.invalid && (m.signature.dirty || m.signature.touched)) || submitted">
-        <span  class="text-danger" *ngIf="m.signature.errors?.required">Please provide titre</span>
-      </div>
-      html output:<span [innerHtml]="htmlContent"></span>
     </div>
   </div>
 </div>
+
+
+
+
+
+
