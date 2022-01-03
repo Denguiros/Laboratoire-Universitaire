@@ -14,16 +14,16 @@ export class OutilService {
   }
 
   saveOutil(outil: Outil): Promise<Outil> {
-      return this.httpClient.post<Outil>('http://localhost:4200/api/MEMBRE-SERVICE/outils/new', outil).toPromise();
+      return this.httpClient.post<Outil>('http://localhost:4200/api/OUTIL-SERVICE/outil/', outil).toPromise();
   }
 
   updateOutil(outil: Outil): Promise<Outil> {
-    return this.httpClient.put<Outil>('http://localhost:4200/api/MEMBRE-SERVICE/outils/'+outil.id, outil).toPromise();
+    return this.httpClient.put<Outil>('http://localhost:4200/api/OUTIL-SERVICE/outils/'+outil.id, outil).toPromise();
   }
 
   getOutilById(id: string): Promise<Outil> {
     return this.httpClient
-      .get<Outil>('http://localhost:9000/Outil-SERVICE/membre/' + id)
+      .get<Outil>('http://localhost:4200/api/OUTIL-SERVICE/outil/' + id)
       .toPromise();
   }
 
@@ -36,7 +36,7 @@ export class OutilService {
   getAllOutils(): Promise<Outil[]> {
 
     return this.httpClient
-      .get<Outil[]>('http://localhost:9000/Outil-SERVICE/membres')
+      .get<Outil[]>('http://localhost:9000/OUTIL-SERVICE/outils')
       .toPromise();
   }
 }

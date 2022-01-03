@@ -1,14 +1,14 @@
 import { Outil } from './../../../models/outil.member';
 import { OutilService } from './../../../services/outil.service';
 import { Subject } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-outils',
   templateUrl: './outils.component.html',
   styleUrls: ['./outils.component.scss']
 })
-export class OutilsComponent implements OnInit {
+export class OutilsComponent implements OnInit ,OnDestroy{
   // @ts-ignore
   loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
   outils: Outil[] = [];
@@ -18,10 +18,10 @@ export class OutilsComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
     };
-    this.getAllMembers();
+    this.getAllOutils();
   }
 
-  getAllMembers() {
+  getAllOutils() {
     this.outilService.getAllOutils().then((outils) => {
       this.outils = outils;
       this.dtTrigger.next();
