@@ -3,6 +3,8 @@ export interface Publication {
   type : string;
   titre : string;
   lien : string;
+  photo:string;
+  description:string;
   date : Date;
-  sourcepdf: string;
+  sourcePDF: string;
 }

@@ -32,10 +32,13 @@ export class PublicationFormComponent implements OnInit {
     type: ["", [Validators.required]],
     titre: ["", [Validators.required]],
     date: ["", [Validators.required]],
-    sourcePdf: ["", [Validators.required]],
+    description: ["", [Validators.required]],
+    photo: ["", [Validators.required]],
+    sourcepdf: ["", [Validators.required]],
   });
 
   ngOnInit(): void {
+    console.log(this.loggedInUser.id);
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.publicationService.getPublicationById(this.currentId).then((publication) => {
@@ -67,18 +70,23 @@ export class PublicationFormComponent implements OnInit {
         ...this.publication,
         ...this.form.value,
       };
-      publiationToSave.sourcepdf = "";
+      publiationToSave.sourcePDF = "";
+      publiationToSave.photo = "";
       const formData = new FormData();
-      formData.append("pdf", this.form.value.sourcePdf);
+      formData.append("pdf", this.form.value.sourcepdf);
+      formData.append("photo", this.form.value.photo);
       formData.append("publication", JSON.stringify(publiationToSave));
-      console.log(this.form.value.sourcePdf);
       if (publiationToSave.id != null) {
         this.publicationService.updatePublication(formData, publiationToSave.id).then(
           () => this.router.navigate(['/component/publications']));
       } else {
         this.publicationService
           .savePublication(formData)
-          .then(() => this.router.navigate(['/component/publications']));
+          .then((pub) => {
+            this.publicationService.affecterPublicationAMembre(pub.id, this.loggedInUser.id)
+              .then(() => this.router.navigate(['/component/publications'])
+            )
+          });
       }
     }
   }

@@ -30,6 +30,15 @@
 <!--              </div>-->
             </div>
             <div class="col-md-4">
+              <label for="description" class="control-label">Description</label>
+              <input id="description" class="form-control" formControlName="description" required/>
+<!--              <div-->
+<!--                *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">-->
+<!--                <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>-->
+<!--                <span class="text-danger" *ngIf="formControls.type.errors?.pattern">Only letters are allowed</span>-->
+<!--              </div>-->
+            </div>
+            <div class="col-md-4">
               <label for="date" class="control-label">Date</label>
               <input id="date" formControlName="date" type="date" class="form-control"/>
 <!--              <div-->
@@ -39,8 +48,17 @@
 <!--              </div>-->
             </div>
             <div class="col-md-4">
-              <label for="sourcePdf" class="control-label">PDF</label>
-              <input type="file" id="sourcePdf" class="form-control" (change)="onFileSelect($event,'sourcePdf')"/>
+              <label for="sourcepdf" class="control-label">PDF</label>
+              <input type="file" id="sourcepdf" class="form-control" (change)="onFileSelect($event,'sourcepdf')"/>
+<!--              <div-->
+<!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
+<!--                <span class="text-danger"-->
+<!--                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>-->
+<!--              </div>-->
+            </div>
+            <div class="col-md-4">
+              <label for="photo" class="control-label">Photo</label>
+              <input type="file" id="photo" class="form-control" (change)="onFileSelect($event,'photo')"/>
 <!--              <div-->
 <!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
 <!--                <span class="text-danger"-->

@@ -9,6 +9,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {DataTablesModule} from "angular-datatables";
 import { MemberFormComponent } from './member-form/member-form.component';
 import { EvenementsComponent } from './evenements/evenements.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction';
@@ -46,6 +47,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DataTablesModule,
     AngularEditorModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
     SweetAlert2Module.forRoot(),
   ],
   declarations: [

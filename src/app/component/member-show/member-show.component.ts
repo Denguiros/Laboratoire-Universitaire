@@ -3,6 +3,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MemberService} from "../../../services/member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "rxjs";
+import {Publication} from "../../../models/publication.model";
 
 
 @Component({
@@ -15,6 +16,7 @@ export class MemberShowComponent implements OnInit {
   canEdit = false;
   photo = {};
   etudiantsEncadrees = [] as Member[];
+  publications = [] as Publication[];
   // @ts-ignore
   loggedInUser = JSON.parse(localStorage.getItem("user"));
 

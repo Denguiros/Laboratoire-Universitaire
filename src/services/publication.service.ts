@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Publication} from "../models/publication.model";
 
 @Injectable({
@@ -39,9 +39,17 @@ export class PublicationService {
   }
   affecterPublicationAMembre(publicationId:string,memberId:string):Promise<void>
   {
-    //TODO: Not implemented yet.
-    return this.httpClient.post<void>("http://localhost:4200/api/MEMBER-SERVICE/membere/" + memberId + "/publication/" + publicationId,
+    return this.httpClient.post<void>("http://localhost:4200/api/MEMBRE-SERVICE/membre/" + memberId + "/publication/" + publicationId,
       null).toPromise();
   }
 
+  getPublicationFile(path: string) {
+    const params = new HttpParams().set("path", path);
+    return this.httpClient
+      .get('http://localhost:4200/api/PUBLICATION-SERVICE/get-file', {
+        params,
+        responseType: 'blob'
+      })
+      .toPromise();
+  }
 }
