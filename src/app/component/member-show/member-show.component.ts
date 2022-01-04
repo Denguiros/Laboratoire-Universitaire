@@ -4,6 +4,9 @@ import {MemberService} from "../../../services/member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subject} from "rxjs";
 import {Publication} from "../../../models/publication.model";
+import {Outil} from "../../../models/outil.member";
+import {Evenement} from "../../../models/evenement.model";
+import {PublicationService} from "../../../services/publication.service";
 
 
 @Component({
@@ -17,11 +20,13 @@ export class MemberShowComponent implements OnInit {
   photo = {};
   etudiantsEncadrees = [] as Member[];
   publications = [] as Publication[];
+  outils = [] as Outil[];
+  evenements = [] as Evenement[];
   // @ts-ignore
   loggedInUser = JSON.parse(localStorage.getItem("user"));
 
   constructor(private memberService: MemberService, private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,private publicationService: PublicationService) {
   }
 
   currentId = '';
@@ -33,6 +38,9 @@ export class MemberShowComponent implements OnInit {
       this.memberService.getMemberById(this.currentId).then((member) => {
         if (member.id != null) {
           this.member = member;
+          this.publications = member.publications;
+          this.evenements = member.evenements;
+          this.outils = member.outils;
           if (member.photo !== '') {
             this.memberService.getUserFile(this.member.photo).then((photo) => {
               const reader = new FileReader();
@@ -61,6 +69,29 @@ export class MemberShowComponent implements OnInit {
           if (this.member.email === this.loggedInUser.email) {
             this.canEdit = true;
           }
+          this.publications.forEach((publication) => {
+            console.log(publication);
+            if (publication.photo !== '') {
+              this.publicationService.getPublicationFile(publication.photo).then((photo) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(photo);
+                // @ts-ignore
+                reader.onloadend = () => {
+                  // @ts-ignore
+                  document.querySelector('#pub' + publication.id).src = reader.result;
+                }
+              });
+            }
+            this.publicationService.getPublicationFile(publication.sourcePDF).then((pdf) => {
+              const file = new Blob([pdf], {
+                type: 'application/pdf'
+              });
+              // @ts-ignore
+              document.querySelector('#source'+ publication.id).href = URL.createObjectURL(file);
+              // @ts-ignore
+              document.querySelector('#source'+ publication.id).download = 'publication.pdf';
+            })
+          })
           if (this.member.type === "Enseignant") {
 
             this.memberService.getEtudiantsDeEnseignant(this.currentId).then((members) => {

@@ -29,7 +29,7 @@ export class OutilService {
   getAllOutils(): Promise<Outil[]> {
 
     return this.httpClient
-      .get<Outil[]>('http://localhost:9000/OUTIL-SERVICE/outils')
+      .get<Outil[]>('http://localhost:4200/api/OUTIL-SERVICE/outils')
       .toPromise();
   }
 
@@ -37,6 +37,11 @@ export class OutilService {
     // return this.httpClient.delete<void>('LinkToRestAPI').toPromise();
     this.tab = this.tab.filter((outil) => outil.id !== id);
     return new Promise((resolve) => resolve());
+  }
+  affecterOutilAMembre(outilId:string,memberId:string):Promise<void>
+  {
+    return this.httpClient.post<void>("http://localhost:4200/api/MEMBRE-SERVICE/membre/" + memberId + "/outil/" + outilId,
+      null).toPromise();
   }
 
 }

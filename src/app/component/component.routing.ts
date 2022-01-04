@@ -51,6 +51,11 @@ export const ComponentsRoutes: Routes = [
         canActivate: [LoggedInUserAuthorization]
       },
       {
+        path: 'evenement-form/:id/ed',
+        component: EvenementFormComponent,
+        canActivate: [LoggedInUserAuthorization]
+      },
+      {
         path: 'encadrement-form/:id/edit',
         component: EncadrementFormComponent,
         canActivate: [LoggedInUserAuthorization]

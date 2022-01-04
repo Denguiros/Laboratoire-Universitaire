@@ -1,3 +1,7 @@
+import {Publication} from "./publication.model";
+import {Evenement} from "./evenement.model";
+import {Outil} from "./outil.member";
+
 export interface Member {
   id: string;
   admin:string;
@@ -14,4 +18,7 @@ export interface Member {
   encadreur:string;
   grade: string;
   etablissement: string;
+  publications:Publication[];
+  evenements:Evenement[];
+  outils:Outil[];
 }

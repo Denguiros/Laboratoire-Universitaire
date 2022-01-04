@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PublicationService} from "../../../services/publication.service";
 import {Publication} from "../../../models/publication.model";
+import {Evenement} from "../../../models/evenement.model";
+import {Outil} from "../../../models/outil.member";
 
 @Component({
   selector: 'app-publications',
@@ -12,6 +14,7 @@ export class PublicationsComponent implements OnInit {
   loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
   publications = [] as Publication[];
   term: string = "";
+  canEdit = false;
 
   constructor(private publicationService: PublicationService) {
   }

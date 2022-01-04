@@ -1,47 +1,48 @@
-<div class="row">
-  <div class="col-lg-12">
-    <!-- ==================================-->
-    <!-- ========== Basic Alert ========== -->
-    <!-- ==================================-->
-    <div class="card w-100">
-      <div class="d-flex justify-content-between ">
-        <div class="p-3">
-          <h4 class="card-title mb-0">Publications</h4>
-        </div>
-        <button *ngIf="loggedInUser != null" class="btn btn-outline-primary btn-sm" type="button" routerLink="/component/publication-form">Ajouter Publication</button>
-      </div>
+<!-- ==================================-->
+<!-- ========== Basic Alert ========== -->
+<!-- ==================================-->
+<div class="card w-100">
+  <div class="d-flex justify-content-between ">
+    <div class="p-3">
+      <h4 class="card-title mb-0">Publications</h4>
+    </div>
+    <button *ngIf="loggedInUser != null" class="btn btn-outline-primary btn-sm" type="button"
+            routerLink="/component/publication-form">Ajouter Publication
+    </button>
+  </div>
 
-      <div class="card-body border-top">
-        <div class="col-md-4">
-          <label for="filter" class="control-label">Filter Publications</label>
-          <input type="text" [(ngModel)]="term" id="filter" (ngModelChange)="onChange($event)" class="form-control" placeholder="Filter by date/type/title/description">
-        </div>
-        <br/>
-        <!-- Card -->
-        <div class="col-md-6 col-lg-3" *ngFor="let publication of publications |filter:term">
-          <div class="card">
-            <img
-              class="card-img-top img-responsive"
-              alt="Card image cap"
-              id="image{{publication.id}}"
-            />
-            <div class="card-body">
-              <h4 class="card-title">{{publication.titre}}</h4>
-              <p class="card-text">
-                {{publication.description}}
-              </p>
-              <p>
-                {{publication.date}}
-              </p>
-              <p>
-                {{publication.type}}
-              </p>
-              <a href="javascript:void(0)" class="btn btn-primary" id="source">Download PDF</a>
-            </div>
+  <div class="card-body border-top">
+    <div class="col-md-4">
+      <label for="filter" class="control-label">Filter Publications</label>
+      <input type="text" [(ngModel)]="term" id="filter" (ngModelChange)="onChange($event)" class="form-control"
+             placeholder="Filter by date/type/title/description">
+    </div>
+    <br/>
+    <div class="row">
+      <!-- Card -->
+      <div class="col-lg-3 col-md-6" *ngFor="let publication of publications |filter:term">
+        <div class="card">
+          <img
+            class="card-img-top img-responsive"
+            alt="Card image cap"
+            id="image{{publication.id}}"
+          />
+          <div class="card-body">
+            <h4 class="card-title">{{publication.titre}}</h4>
+            <p class="card-text">
+              {{publication.description}}
+            </p>
+            <p>
+              {{publication.date}}
+            </p>
+            <p>
+              {{publication.type}}
+            </p>
+            <a href="javascript:void(0)" class="btn btn-primary" id="source">Download PDF</a>
           </div>
         </div>
-        <!-- Card -->
       </div>
+      <!-- Card -->
     </div>
   </div>
 </div>

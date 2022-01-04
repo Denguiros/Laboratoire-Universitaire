@@ -1,8 +1,12 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card w-100">
-      <div class="p-3">
-        <h4 class="card-title mb-0">Evenement</h4>
+      <div class="d-flex justify-content-between">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Evenement</h4>
+        </div>
+        <button routerLink="/component/evenement-form/{{evenement.id}}/ed" class="btn btn-outline-primary" *ngIf="canEdit">Edit</button>
+        <button (click)="updateParticipation()" class="btn btn-outline-primary">{{participation}}</button>
       </div>
       <div class="row gutters-sm">
         <div class="row align-items-center text-md-left mb-5">
@@ -21,3 +25,53 @@
     </div>
   </div>
 </div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Participants</h4>
+        </div>
+      </div>
+      <div class="card-body border-top">
+        <table datatable dtOptions="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>General Infos</th>
+            <th>Diplome</th>
+            <th>Date Inscription</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let member of participants">
+            <td>{{member.id}}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img *ngIf="member.photo !='';else noPhoto" id="image{{member.id}}" alt="user" width="45"
+                     class="rounded-circle">
+                <ng-template #noPhoto>
+                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45"
+                       class="rounded-circle">
+                </ng-template>
+                <div class="ms-3">
+                  <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
+                  <span class="text-muted">{{member.email}}</span>
+                </div>
+              </div>
+            </td>
+            <td>{{member.diplome}}</td>
+            <td>{{member.dateInscription}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+

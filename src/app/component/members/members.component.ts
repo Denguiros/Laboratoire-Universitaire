@@ -55,7 +55,6 @@ export class MembersComponent implements OnDestroy, OnInit {
         this.members = members;
         this.members.forEach((member) => {
           if (member.photo != null) {
-
             this.memberService.getUserFile(member.photo).then((photo) => {
               const reader = new FileReader();
               reader.readAsDataURL(photo);
@@ -66,7 +65,6 @@ export class MembersComponent implements OnDestroy, OnInit {
                 // @ts-ignore
                 document.querySelector('#image' + member.id).src = reader.result;
               }
-              console.log(photo);
             });
           }
         })

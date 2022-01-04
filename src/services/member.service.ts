@@ -98,4 +98,10 @@ export class MemberService {
       .post('http://localhost:4200/api/MEMBRE-SERVICE/etudiant/' + idEtd + '/affecter/'+idEns,null)
       .toPromise()
   }
+
+  getAllEventParticipants(id:string):Promise<Member[]> {
+    return this.httpClient
+      .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/eventParticipants/' + id)
+      .toPromise()
+  }
 }

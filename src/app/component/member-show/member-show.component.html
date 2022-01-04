@@ -176,3 +176,116 @@
     </div>
   </div>
 </div>
+
+<div class="row" *ngIf="evenements.length>0">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Evenements</h4>
+        </div>
+      </div>
+      <div class="card-body border-top">
+        <table datatable class="row-border hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Lieu</th>
+            <th>Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let evenement of member.evenements">
+            <td>{{evenement.id}}</td>
+            <td>
+              {{evenement.titre}}
+            </td>
+            <td>{{evenement.lieu}}</td>
+            <td>{{evenement.date}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="outils.length>0">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Outils</h4>
+        </div>
+      </div>
+      <div class="card-body border-top">
+        <table datatable class="row-border hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Source</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let outil of outils">
+            <td>{{outil.id}}</td>
+            <td>{{outil.date}}</td>
+            <td>{{outil.source}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card w-100" *ngIf="publications.length>0">
+  <div class="d-flex justify-content-between ">
+    <div class="p-3">
+      <h4 class="card-title mb-0">Publications</h4>
+    </div>
+  </div>
+
+  <div class="card-body border-top">
+    <div class="col-md-4">
+<!--      <label for="filter" class="control-label">Filter Publications</label>-->
+<!--      <input type="text" [(ngModel)]="term" id="filter" (ngModelChange)="onChange($event)" class="form-control"-->
+<!--             placeholder="Filter by date/type/title/description">-->
+    </div>
+    <br/>
+    <div class="row">
+      <!-- Card -->
+<!--      <div class="col-lg-3 col-md-6" *ngFor="let publication of publications |filter:term">-->
+      <div class="col-lg-3 col-md-6" *ngFor="let publication of member.publications">
+        <div class="card">
+          <img
+            class="card-img-top img-responsive"
+            alt="Card image cap"
+            id="pub{{publication.id}}"
+          />
+          <div class="card-body">
+            <h4 class="card-title">{{publication.titre}}</h4>
+            <p class="card-text">
+              {{publication.description}}
+            </p>
+            <p>
+              {{publication.date}}
+            </p>
+            <p>
+              {{publication.type}}
+            </p>
+            <a href="javascript:void(0)" class="btn btn-primary" id="source{{publication.id}}">Download PDF</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card -->
+    </div>
+  </div>
+</div>
+
