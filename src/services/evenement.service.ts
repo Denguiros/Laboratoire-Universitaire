@@ -23,14 +23,14 @@ export class EvenementService {
       .get<Evenement>('http://localhost:4200/api/EVENEMENT-SERVICE/evenement/' + id)
       .toPromise();
   }
-  getAllEvemenement(): Promise<Evenement[]> {
+  getAllEvemenements(): Promise<Evenement[]> {
 
     return this.httpClient
       .get<Evenement[]>('http://localhost:9000/EVENEMENT-SERVICE/evenements')
       .toPromise();
   }
 
-  deleteOutilById(id: string): Promise<void> {
+  deleteEvenementById(id: string): Promise<void> {
     // return this.httpClient.delete<void>('LinkToRestAPI').toPromise();
     this.tab = this.tab.filter((evenement) => evenement.id !== id);
     return new Promise((resolve) => resolve());
