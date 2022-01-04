@@ -26,6 +26,12 @@ export class OutilService {
       .get<Outil>('http://localhost:4200/api/OUTIL-SERVICE/outil/' + id)
       .toPromise();
   }
+  getAllOutils(): Promise<Outil[]> {
+
+    return this.httpClient
+      .get<Outil[]>('http://localhost:9000/OUTIL-SERVICE/outils')
+      .toPromise();
+  }
 
   deleteOutilById(id: string): Promise<void> {
     // return this.httpClient.delete<void>('LinkToRestAPI').toPromise();
@@ -33,10 +39,4 @@ export class OutilService {
     return new Promise((resolve) => resolve());
   }
 
-  getAllOutils(): Promise<Outil[]> {
-
-    return this.httpClient
-      .get<Outil[]>('http://localhost:9000/OUTIL-SERVICE/outils')
-      .toPromise();
-  }
 }

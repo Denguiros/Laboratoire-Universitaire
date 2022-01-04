@@ -27,6 +27,7 @@ import { MemberShowComponent } from './member-show/member-show.component';
 import { EvenementShowComponent } from './evenement-show/evenement-show.component';
 import { OutilsShowComponent } from './outils-show/outils-show.component';
 import { EncadrementFormComponent } from './encadrement-form/encadrement-form.component';
+import {SafePipe} from "../safe.pipe";
 
 
 
@@ -51,6 +52,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SweetAlert2Module.forRoot(),
   ],
   declarations: [
+    SafePipe,
     MembersComponent,
     MemberFormComponent,
     EvenementsComponent,
