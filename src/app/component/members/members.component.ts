@@ -9,8 +9,7 @@ import {Subject} from "rxjs";
 })
 export class MembersComponent implements OnDestroy, OnInit {
   members: Member[] = [];
-  // @ts-ignore
-  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
+  loggedInUser = {} as Member;
   loggedInUserIsAdmin : boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -20,6 +19,8 @@ export class MembersComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
     };
     this.getAllMembers();
+    // @ts-ignore
+    this.loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
     if(this.loggedInUser != null)
     {
       if (this.loggedInUser.admin)

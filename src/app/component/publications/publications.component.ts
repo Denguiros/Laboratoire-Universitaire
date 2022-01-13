@@ -15,7 +15,7 @@ export class PublicationsComponent implements OnInit {
   publications = [] as Publication[];
   term: string = "";
   canEdit = false;
-
+  ownedPublications = [] as Publication[];
   constructor(private publicationService: PublicationService) {
   }
 
@@ -28,6 +28,14 @@ export class PublicationsComponent implements OnInit {
       this.publications = publications;
       this.publications.forEach((publication) => {
         if (publication.photo !== '') {
+          if(this.loggedInUser != null)
+          {
+            if(this.loggedInUser.publications.filter((pub: Publication)=>pub.id===publication.id).length>0)
+            {
+
+            this.ownedPublications.push(publication);
+            }
+          }
           this.publicationService.getPublicationFile(publication.photo).then((photo) => {
             const reader = new FileReader();
             reader.readAsDataURL(photo);

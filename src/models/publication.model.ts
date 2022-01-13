@@ -5,6 +5,6 @@ export interface Publication {
   lien : string;
   photo:string;
   description:string;
-  date : Date;
+  date : string;
   sourcePDF: string;
 }

@@ -40,16 +40,19 @@
               <ul ngbDropdownMenu aria-labelledby="dropdown1">
                 <li>
                   <a class="dropdown-item text-black btn-labeled"  routerLink="/component/outil-show/{{outil.id}}" ><span class="btn-label"><i class="fa fa-eye"></i></span> Show</a></li>
-                <li><a class="dropdown-item text-black" routerLink="/component/outil-form/{{outil.id}}/edit"><span class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
+                <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-black" routerLink="/component/outil-form/{{outil.id}}/edit"><span
+                  class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li *ngIf="loggedInUserIsAdmin"><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
                   text: 'You will not be able to revert this!',
                   icon: 'warning',
                   showCancelButton: true,
                   confirmButtonText: 'Yes, delete it!',
                   reverseButtons: true,
                   cancelButtonText: 'No, cancel!', showCancelButton: true }"
-                       (confirm)="onRemove(outil.id)"
+                                                   (confirm)="onRemove(outil.id)"
                 ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
               </ul>
             </div></td>

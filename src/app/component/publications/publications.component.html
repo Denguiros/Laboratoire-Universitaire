@@ -39,6 +39,7 @@
               {{publication.type}}
             </p>
             <a href="javascript:void(0)" class="btn btn-primary" id="source">Download PDF</a>
+            <a *ngIf="ownedPublications.includes(publication)" href="javascript:void(0)" class="btn btn-primary" id="edit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</a>
           </div>
         </div>
       </div>

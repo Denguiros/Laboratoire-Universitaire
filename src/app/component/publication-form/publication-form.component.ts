@@ -38,16 +38,16 @@ export class PublicationFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    console.log(this.loggedInUser.id);
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.publicationService.getPublicationById(this.currentId).then((publication) => {
-
         if (publication.id != null) {
           this.fromType = "Update";
           this.publication = publication;
           this.form.patchValue(this.publication);
         }
+      }).catch((error)=>{
+        this.router.navigate(["/component/publications"]);
       });
 
     }

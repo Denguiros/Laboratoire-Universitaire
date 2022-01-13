@@ -11,7 +11,7 @@ import {Member} from "../../../models/member.model";
   templateUrl: './evenement-show.component.html',
   styleUrls: ['./evenement-show.component.scss']
 })
-export class EvenementShowComponent implements OnInit,OnDestroy {
+export class EvenementShowComponent implements OnInit, OnDestroy {
 
   evenement: Evenement = {} as Evenement;
   participation = "Participer";
@@ -21,19 +21,22 @@ export class EvenementShowComponent implements OnInit,OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   participants = [] as Member[];
+
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute, private evenementService: EvenementService,private memberService:MemberService) {
+              private activatedRoute: ActivatedRoute, private evenementService: EvenementService, private memberService: MemberService) {
   }
 
   currentId = '';
+
   getAllParticipants() {
     this.memberService.getAllEventParticipants(this.evenement.id).then((members) => {
       this.participants = members;
-      console.log(members);
       this.participants.forEach((participant) => {
-        if(participant.id === this.loggedInUser.id)
-        {
-          this.participation = "Ne plus participer";
+        if (this.loggedInUser != null) {
+
+          if (participant.id === this.loggedInUser.id) {
+            this.participation = "Ne plus participer";
+          }
         }
         if (participant.photo !== '') {
           this.memberService.getUserFile(participant.photo).then((photo) => {
@@ -50,6 +53,7 @@ export class EvenementShowComponent implements OnInit,OnDestroy {
       this.dtTrigger.next();
     });
   }
+
   updateParticipation() {
     if (this.participation === "Participer") {
       this.evenementService.affecterEvenementAMembre(this.evenement.id, this.loggedInUser.id).then(() => {
@@ -57,8 +61,7 @@ export class EvenementShowComponent implements OnInit,OnDestroy {
           this.participants = members;
 
           this.participants.forEach((participant) => {
-            if(participant.id === this.loggedInUser.id)
-            {
+            if (participant.id === this.loggedInUser.id) {
               this.participation = "Ne plus participer";
             }
             if (participant.photo !== '') {
@@ -97,6 +100,7 @@ export class EvenementShowComponent implements OnInit,OnDestroy {
       })
     }
   }
+
   ngOnInit(): void {
 
     this.currentId = this.activatedRoute.snapshot.params.id;
@@ -105,14 +109,17 @@ export class EvenementShowComponent implements OnInit,OnDestroy {
         if (evenement.id != null) {
           this.evenement = evenement;
           this.getAllParticipants();
-          if (this.loggedInUser.evenements.filter((ev:Evenement)=>ev.id === this.evenement.id).length>0) {
-            this.canEdit = true;
+          if (this.loggedInUser != null) {
+
+            if (this.loggedInUser.evenements.filter((ev: Evenement) => ev.id === this.evenement.id).length > 0) {
+              this.canEdit = true;
+            }
           }
-          console.log(this.canEdit);
         }
       })
     }
   }
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

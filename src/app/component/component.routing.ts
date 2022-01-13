@@ -80,8 +80,9 @@ export const ComponentsRoutes: Routes = [
         path: 'publications',
         component: PublicationsComponent
       },
+
       {
-        path: 'publication-form',
+        path: 'publication-form/:id/edit',
         component: PublicationFormComponent,
         canActivate: [LoggedInUserAuthorization]
       },

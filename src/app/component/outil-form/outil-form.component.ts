@@ -57,7 +57,6 @@ export class OutilFormComponent implements OnInit {
         ...this.outilReceivedByService,
         ...this.form.value,
       };
-      outilToSave.date = new Date();
       if (outilToSave.id != null) {
         this.outilService.updateOutil(outilToSave).then(() => this.router.navigate(['/component/outilToSaves']));
       }
