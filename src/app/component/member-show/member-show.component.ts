@@ -23,10 +23,10 @@ export class MemberShowComponent implements OnInit {
   outils = [] as Outil[];
   evenements = [] as Evenement[];
   // @ts-ignore
-  loggedInUser = JSON.parse(localStorage.getItem("user"));
+  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
 
   constructor(private memberService: MemberService, private router: Router,
-              private activatedRoute: ActivatedRoute,private publicationService: PublicationService) {
+              private activatedRoute: ActivatedRoute, private publicationService: PublicationService) {
   }
 
   currentId = '';
@@ -66,11 +66,13 @@ export class MemberShowComponent implements OnInit {
             })
           }
           this.member.type = this.member.grade != null ? "Enseignant" : "Etudiant";
-          if (this.member.email === this.loggedInUser.email) {
-            this.canEdit = true;
+          if (this.loggedInUser != null) {
+
+            if (this.member.email === this.loggedInUser.email) {
+              this.canEdit = true;
+            }
           }
           this.publications.forEach((publication) => {
-            console.log(publication);
             if (publication.photo !== '') {
               this.publicationService.getPublicationFile(publication.photo).then((photo) => {
                 const reader = new FileReader();
@@ -87,9 +89,9 @@ export class MemberShowComponent implements OnInit {
                 type: 'application/pdf'
               });
               // @ts-ignore
-              document.querySelector('#source'+ publication.id).href = URL.createObjectURL(file);
+              document.querySelector('#source' + publication.id).href = URL.createObjectURL(file);
               // @ts-ignore
-              document.querySelector('#source'+ publication.id).download = 'publication.pdf';
+              document.querySelector('#source' + publication.id).download = 'publication.pdf';
             })
           })
           if (this.member.type === "Enseignant") {

@@ -6,7 +6,7 @@
           <h4 class="card-title mb-0">Evenement</h4>
         </div>
         <button routerLink="/component/evenement-form/{{evenement.id}}/ed" class="btn btn-outline-primary" *ngIf="canEdit">Edit</button>
-        <button (click)="updateParticipation()" class="btn btn-outline-primary">{{participation}}</button>
+        <button *ngIf="loggedInUser !=null" (click)="updateParticipation()" class="btn btn-outline-primary">{{participation}}</button>
       </div>
       <div class="row gutters-sm">
         <div class="row align-items-center text-md-left mb-5">

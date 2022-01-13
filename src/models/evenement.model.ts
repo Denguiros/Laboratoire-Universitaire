@@ -1,6 +1,6 @@
 export interface Evenement {
   id: string;
   titre: string;
-  date : Date;
+  date : string;
   lieu : string;
 }

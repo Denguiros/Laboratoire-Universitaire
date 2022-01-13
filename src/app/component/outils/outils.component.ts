@@ -14,11 +14,19 @@ export class OutilsComponent implements OnInit ,OnDestroy{
   outils: Outil[] = [];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  loggedInUserIsAdmin : boolean = false;
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
     };
     this.getAllOutils();
+    if(this.loggedInUser != null)
+    {
+      if (this.loggedInUser.admin)
+      {
+        this.loggedInUserIsAdmin = true;
+      }
+    }
   }
 
   getAllOutils() {
