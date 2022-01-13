@@ -72,4 +72,12 @@ export class OutilFormComponent implements OnInit {
   get m() {
     return this.form.controls;
   }
+
+  onFileSelect(event: any, type: string) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      // @ts-ignore
+      this.form.get(type).setValue(file);
+    }
+  }
 }

@@ -9,6 +9,7 @@ import {Subject} from "rxjs";
 })
 export class MembersComponent implements OnDestroy, OnInit {
   members: Member[] = [];
+
   // @ts-ignore
   loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
   loggedInUserIsAdmin : boolean = false;
@@ -48,6 +49,7 @@ export class MembersComponent implements OnDestroy, OnInit {
       this.dtTrigger.next();
     });
   }
+
 
   onRemove(id: string) {
     this.memberService.deleteMemberById(id).then(() => {

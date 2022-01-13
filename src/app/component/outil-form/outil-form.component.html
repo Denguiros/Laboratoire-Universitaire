@@ -18,6 +18,15 @@
               </div>
             </div>
             <div class="col-md-4">
+              <label for="sourcepdf" class="control-label">PDF</label>
+              <input type="file" id="sourcepdf" class="form-control" (change)="onFileSelect($event,'sourcepdf')"/>
+              <!--              <div-->
+              <!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
+              <!--                <span class="text-danger"-->
+              <!--                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>-->
+              <!--              </div>-->
+            </div>
+            <div class="col-md-4">
               <label for="source" class="control-label">source</label>
               <input id="source" class="form-control" formControlName="source"/>
               <div *ngIf="(m.source.invalid && (m.source.dirty || m.source.touched)) || submitted">
