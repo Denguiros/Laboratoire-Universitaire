@@ -104,4 +104,8 @@ export class MemberService {
       .get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/eventParticipants/' + id)
       .toPromise()
   }
+
+  getCollaborateursPublication(id:string):Promise<Member[]>{
+    return this.httpClient.get<Member[]>('http://localhost:4200/api/MEMBRE-SERVICE/publicationCollabs/' + id).toPromise();
+  }
 }

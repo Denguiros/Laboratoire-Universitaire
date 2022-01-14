@@ -16,6 +16,7 @@ export class PublicationsComponent implements OnInit {
   term: string = "";
   canEdit = false;
   ownedPublications = [] as Publication[];
+
   constructor(private publicationService: PublicationService) {
   }
 
@@ -28,12 +29,10 @@ export class PublicationsComponent implements OnInit {
       this.publications = publications;
       this.publications.forEach((publication) => {
         if (publication.photo !== '') {
-          if(this.loggedInUser != null)
-          {
-            if(this.loggedInUser.publications.filter((pub: Publication)=>pub.id===publication.id).length>0)
-            {
+          if (this.loggedInUser != null) {
+            if (this.loggedInUser.publications.filter((pub: Publication) => pub.id === publication.id).length > 0) {
 
-            this.ownedPublications.push(publication);
+              this.ownedPublications.push(publication);
             }
           }
           this.publicationService.getPublicationFile(publication.photo).then((photo) => {
@@ -51,15 +50,15 @@ export class PublicationsComponent implements OnInit {
             type: 'application/pdf'
           });
           // @ts-ignore
-          document.querySelector('#source').href = URL.createObjectURL(file);
+          document.querySelector('#source' + publication.id).href = URL.createObjectURL(file);
           // @ts-ignore
-          document.querySelector('#source').download = 'publication.pdf';
+          document.querySelector('#source' +publication.id).download = 'publication.pdf';
         })
       })
     });
   }
-  onChange(newValue:string)
-  {
+
+  onChange(newValue: string) {
     this.getAllPublications();
   }
 

@@ -52,4 +52,11 @@ export class PublicationService {
       })
       .toPromise();
   }
+
+  desaffecterPublicationMembres(publicationId:string) {
+    {
+      return this.httpClient.post<void>("http://localhost:4200/api/MEMBRE-SERVICE/membre/publication/" + publicationId+"/desaffecter",
+        null).toPromise();
+    }
+  }
 }

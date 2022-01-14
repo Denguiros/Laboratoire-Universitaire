@@ -14,6 +14,7 @@ import {OutilsComponent} from "./outils/outils.component";
 import {AdminAuthorization} from "../../services/AdminAuthorization";
 import {LoggedInUserAuthorization} from "../../services/LoggedInUserAuthorization";
 import {EncadrementFormComponent} from "./encadrement-form/encadrement-form.component";
+import {PublicationShowComponent} from "./publication-show/publication-show.component";
 
 
 export const ComponentsRoutes: Routes = [
@@ -80,7 +81,15 @@ export const ComponentsRoutes: Routes = [
         path: 'publications',
         component: PublicationsComponent
       },
-
+      {
+        path: 'publication-form',
+        component: PublicationFormComponent,
+        canActivate: [LoggedInUserAuthorization]
+      },
+      {
+        path: 'publication-show/:id',
+        component: PublicationShowComponent,
+      },
       {
         path: 'publication-form/:id/edit',
         component: PublicationFormComponent,

@@ -21,27 +21,30 @@
     <div class="row">
       <!-- Card -->
       <div class="col-lg-3 col-md-6" *ngFor="let publication of publications |filter:term">
-        <div class="card">
-          <img
-            class="card-img-top img-responsive"
-            alt="Card image cap"
-            id="image{{publication.id}}"
-          />
-          <div class="card-body">
-            <h4 class="card-title">{{publication.titre}}</h4>
-            <p class="card-text">
-              {{publication.description}}
-            </p>
-            <p>
-              {{publication.date}}
-            </p>
-            <p>
-              {{publication.type}}
-            </p>
-            <a href="javascript:void(0)" class="btn btn-primary" id="source">Download PDF</a>
-            <a *ngIf="ownedPublications.includes(publication)" href="javascript:void(0)" class="btn btn-primary" id="edit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</a>
+        <a href="component/publication-show/{{publication.id}}">
+          <div class="card">
+            <img
+              class="card-img-top img-responsive"
+              alt="Card image cap"
+              id="image{{publication.id}}"
+            />
+            <div class="card-body">
+              <h4 class="card-title">{{publication.titre}}</h4>
+              <p class="card-text">
+                {{publication.description}}
+              </p>
+              <p>
+                {{publication.date}}
+              </p>
+              <p>
+                {{publication.type}}
+              </p>
+              <a href="javascript:void(0)" class="btn btn-primary" id="source{{publication.id}}">Download PDF</a>
+              <a *ngIf="ownedPublications.includes(publication)" href="javascript:void(0)" class="btn btn-warning"
+                 id="edit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</a>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
       <!-- Card -->
     </div>

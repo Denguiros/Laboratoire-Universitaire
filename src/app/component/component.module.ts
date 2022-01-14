@@ -28,6 +28,7 @@ import { EvenementShowComponent } from './evenement-show/evenement-show.componen
 import { OutilsShowComponent } from './outils-show/outils-show.component';
 import { EncadrementFormComponent } from './encadrement-form/encadrement-form.component';
 import {SafePipe} from "../safe.pipe";
+import { PublicationShowComponent } from './publication-show/publication-show.component';
 
 
 
@@ -65,7 +66,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     MemberShowComponent,
     EvenementShowComponent,
     OutilsShowComponent,
-    EncadrementFormComponent
+    EncadrementFormComponent,
+    PublicationShowComponent
   ],
 
 })
