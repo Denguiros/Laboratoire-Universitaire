@@ -229,15 +229,53 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Date</th>
-            <th>Source</th>
+            <th>Nom d'outil</th>
+            <th>Date Publication</th>
+            <th>Code Source</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let outil of outils">
             <td>{{outil.id}}</td>
+            <td>{{outil.nom}}</td>
             <td>{{outil.date}}</td>
-            <td>{{outil.source}}</td>
+            <td><a href="javascript:void(0)" class="btn btn-outline-primary" id="sourceOutil{{outil.id}}"><span><i class="fa fa-file-archive fa-2x"></i></span></a></td>
+            <td><div class="btn-group" ngbDropdown *ngIf="canEdit; else noAction">
+              <button type="button" class="btn btn-primary
+                dropdown-toggle-icon-none
+                d-flex
+                align-items-center"               id="dropdown1"
+                      ngbDropdownToggle>
+                                        <span class="icon icon-sm">
+                                            <span class="fas fa-ellipsis-h icon-dark"></span>
+                                        </span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+
+              <ul ngbDropdownMenu aria-labelledby="dropdown1">
+                <li *ngIf="canEdit"><a class="dropdown-item text-black" routerLink="/component/outil-form/{{outil.id}}/edit"><span
+                  class="btn-label"><i class="fa fa-edit"></i></span> Edit</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li *ngIf="canEdit"><a class="dropdown-item text-danger" href="#" [swal]="{ title: 'Are you sure?',
+                  text: 'You will not be able to revert this!',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, delete it!',
+                  reverseButtons: true,
+                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
+                                                                                                                    (confirm)="onRemoveOutil(outil.id,outil.id)"
+                ><span class="btn-label"><i class="fa fa-trash"></i></span> Delete</a></li>
+              </ul>
+            </div>
+              <ng-template #noAction>
+                <div>
+                  None
+                </div>
+              </ng-template>
+            </td>
           </tr>
           </tbody>
         </table>

@@ -25,7 +25,6 @@ import { OutilFormComponent } from './outil-form/outil-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MemberShowComponent } from './member-show/member-show.component';
 import { EvenementShowComponent } from './evenement-show/evenement-show.component';
-import { OutilsShowComponent } from './outils-show/outils-show.component';
 import { EncadrementFormComponent } from './encadrement-form/encadrement-form.component';
 import {SafePipe} from "../safe.pipe";
 import { PublicationShowComponent } from './publication-show/publication-show.component';
@@ -65,7 +64,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ProfileComponent,
     MemberShowComponent,
     EvenementShowComponent,
-    OutilsShowComponent,
     EncadrementFormComponent,
     PublicationShowComponent
   ],

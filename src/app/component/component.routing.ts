@@ -1,5 +1,4 @@
 import {OutilFormComponent} from './outil-form/outil-form.component';
-import {OutilsShowComponent} from './outils-show/outils-show.component';
 import {EvenementShowComponent} from './evenement-show/evenement-show.component';
 import {Routes} from '@angular/router';
 import {MembersComponent} from "./members/members.component";
@@ -69,11 +68,13 @@ export const ComponentsRoutes: Routes = [
         path: 'outils',
         component: OutilsComponent
       },
-      {
-        path: 'outil-show/:id',
-        component: OutilsShowComponent
-      }, {
+{
         path: 'outil-form',
+        component: OutilFormComponent,
+        canActivate: [LoggedInUserAuthorization]
+      },
+      {
+        path: 'outil-form/:id/edit',
         component: OutilFormComponent,
         canActivate: [LoggedInUserAuthorization]
       },

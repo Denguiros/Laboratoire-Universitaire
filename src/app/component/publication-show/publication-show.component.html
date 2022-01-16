@@ -1,1 +1,128 @@
-<p>publication-show works!</p>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card w-100">
+      <div class="d-flex justify-content-between">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Publication</h4>
+        </div>
+        <button class="btn btn-outline-primary" *ngIf="canEdit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</button>
+        <button class="btn btn-outline-danger" *ngIf="canEdit" [swal]="{ title: 'Are you sure?',
+                  text: 'You will not be able to revert this!',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Yes, delete it!',
+                  reverseButtons: true,
+                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
+                (confirm)="onRemove(publication.id)">Delete</button>
+      </div>
+      <div class="row gutters-sm">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img alt="Admin" id="image" width="100" class="col-md-12">
+              </div>
+              <div class="mt-3">
+                <a class="btn btn-primary" id="source">Download PDF</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Titre</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ publication.titre }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Description</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ publication.description }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Date De Creation</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ publication.date }}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Type</h6>
+                </div>
+                <div class="col-sm-9 text-primary">
+                  {{ publication.type }}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <!-- ==================================-->
+    <!-- ========== Basic Alert ========== -->
+    <!-- ==================================-->
+    <div class="card w-100">
+      <div class="d-flex justify-content-between ">
+        <div class="p-3">
+          <h4 class="card-title mb-0">Collaborateurs</h4>
+        </div>
+      </div>
+      <div class="card-body border-top">
+        <table datatable class="row-border hover" dtOptions="dtOptions" [dtTrigger]="dtTrigger">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>General Infos</th>
+            <th>Diplome</th>
+            <th>Date Inscription</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let member of collaborateurs">
+            <td>{{member.id}}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img *ngIf="member.photo !='';else noPhoto" id="image{{member.id}}" alt="user" width="45"
+                     class="rounded-circle">
+                <ng-template #noPhoto>
+                  <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="45" height="45"
+                       class="rounded-circle">
+                </ng-template>
+                <div class="ms-3">
+                  <h5 class="mb-0 font-medium">{{member.prenom}} {{member.nom}}</h5>
+                  <span class="text-muted">{{member.email}}</span>
+                </div>
+              </div>
+            </td>
+            <td>{{member.diplome}}</td>
+            <td>{{member.dateInscription}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,7 +15,7 @@
             <ng-template #noPhoto>
               <img src="assets/images/users/user1.jpg" alt="Admin" class="rounded-circle" width="150">
             </ng-template>
-            <input type="file" id="picture" class="form-control" (change)="onFileSelect($event,'photo')"/>
+            <input type="file" id="picture" class="form-control" (change)="onFileSelect($event,'photo')" accept="image/*"/>
           </div>
           <div class="col-8">
           <div class="row vertical-gap">
@@ -70,7 +70,7 @@
             </div>
             <div class="col-md-6">
               <label  for="cv" class="control-label">CV</label>
-              <input type="file" id="cv" class="form-control" (change)="onFileSelect($event,'cv')" />
+              <input type="file" id="cv" class="form-control" (change)="onFileSelect($event,'cv')" accept=".zip,.rar,.7zip"/>
               <span class="text-danger"></span>
             </div>
           </div>

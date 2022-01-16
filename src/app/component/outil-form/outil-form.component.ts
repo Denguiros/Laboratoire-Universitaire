@@ -13,27 +13,27 @@ import {Route, Router, ActivatedRoute} from '@angular/router';
 export class OutilFormComponent implements OnInit {
   submitted = false;
   form: FormGroup = new FormGroup({
-    source: new FormControl("", [Validators.required]),
+    codeSource: new FormControl("", [Validators.required]),
     date: new FormControl("", [Validators.required]),
+    nom: new FormControl("", [Validators.required]),
+    open: new FormControl(""),
   });
   currentId: string = '';
   outilReceivedByService: any;
   fromType = "Add";
+  // @ts-ignore
+  loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
 
   // tslint:disable-next-line:variable-name
   constructor(
-              private outilService: OutilService,
-              private router: Router,
-              private activatedRoute: ActivatedRoute
+    private outilService: OutilService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
   }
 
 
   ngOnInit(): void {
-    $("#type").select2({
-      theme: "classic",
-      placeholder: "Select a type"
-    });
     this.currentId = this.activatedRoute.snapshot.params.id;
     if (this.currentId) {
       this.outilService.getOutilById(this.currentId).then((outil) => {
@@ -48,6 +48,7 @@ export class OutilFormComponent implements OnInit {
       });
     }
   }
+
   onSubmit(): void {
     this.submitted = true;
     if (!this.form.valid) {
@@ -57,12 +58,22 @@ export class OutilFormComponent implements OnInit {
         ...this.outilReceivedByService,
         ...this.form.value,
       };
+      outilToSave.codeSource = "";
+      const formData = new FormData();
+      formData.append("outil", JSON.stringify(outilToSave));
+      formData.append("codeSource", this.form.value.codeSource);
       if (outilToSave.id != null) {
-        this.outilService.updateOutil(outilToSave).then(() => this.router.navigate(['/component/outilToSaves']));
+        this.outilService.updateOutil(outilToSave.id, formData).then(() => this.router.navigate(['/component/outils']));
+      } else {
+        this.outilService
+          .saveOutil(formData)
+          .then((outil) => {
+            console.log(outil)
+            this.outilService.affecterOutilAMembre(outil.id, this.loggedInUser.id).then(() => {
+              this.router.navigate(['/component/outils'])
+            })
+          });
       }
-      this.outilService
-        .saveOutil(outilToSave)
-        .then(() => this.router.navigate(['/component/outils']));
     }
 
   }

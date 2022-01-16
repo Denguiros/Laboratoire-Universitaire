@@ -7,6 +7,7 @@ import {Publication} from "../../../models/publication.model";
 import {Outil} from "../../../models/outil.member";
 import {Evenement} from "../../../models/evenement.model";
 import {PublicationService} from "../../../services/publication.service";
+import {OutilService} from "../../../services/outil.service";
 
 
 @Component({
@@ -20,13 +21,15 @@ export class MemberShowComponent implements OnInit {
   photo = {};
   etudiantsEncadrees = [] as Member[];
   publications = [] as Publication[];
+  allOutils = [] as Outil[];
   outils = [] as Outil[];
   evenements = [] as Evenement[];
   // @ts-ignore
   loggedInUser = localStorage.getItem("user") !== '' ? JSON.parse(localStorage.getItem('user')) : null;
 
   constructor(private memberService: MemberService, private router: Router,
-              private activatedRoute: ActivatedRoute, private publicationService: PublicationService) {
+              private activatedRoute: ActivatedRoute, private publicationService: PublicationService,
+              private outilService:OutilService) {
   }
 
   currentId = '';
@@ -40,7 +43,18 @@ export class MemberShowComponent implements OnInit {
           this.member = member;
           this.publications = member.publications;
           this.evenements = member.evenements;
-          this.outils = member.outils;
+          this.allOutils = member.outils;
+          this.outils = this.allOutils.filter((out)=>String(out.open) === "true")
+          this.outils.forEach((outi)=>{
+
+            this.outilService.getOutilFile(outi.codeSource).then((codeSource) => {
+              const file = new Blob([codeSource]);
+              // @ts-ignore
+              document.querySelector('#sourceOutil' + outi.id).href = URL.createObjectURL(file);
+              // @ts-ignore
+              document.querySelector('#sourceOutil' + outi.id).download = outi.nom+'.rar';
+            })
+          })
           if (member.photo !== '') {
             this.memberService.getUserFile(this.member.photo).then((photo) => {
               const reader = new FileReader();
@@ -70,7 +84,17 @@ export class MemberShowComponent implements OnInit {
 
             if (this.member.email === this.loggedInUser.email) {
               this.canEdit = true;
+              this.outils = this.allOutils;
             }
+            this.outils.forEach((outi)=>{
+              this.outilService.getOutilFile(outi.codeSource).then((codeSource) => {
+                const file = new Blob([codeSource]);
+                // @ts-ignore
+                document.querySelector('#sourceOutil' + outi.id).href = URL.createObjectURL(file);
+                // @ts-ignore
+                document.querySelector('#sourceOutil' + outi.id).download = outi.nom+'.rar';
+              })
+            })
           }
           this.publications.forEach((publication) => {
             if (publication.photo !== '') {
@@ -122,7 +146,13 @@ export class MemberShowComponent implements OnInit {
       this.router.navigate(["/component/members"]);
     }
   }
-
+  onRemoveOutil(idMember: string,idOutil:string) {
+    this.outilService.deleteOutilById(idOutil).then(() => {
+      this.outilService.desaffecterOutilDeMembre(idMember,idOutil).then(()=>{
+        this.allOutils = this.allOutils.filter((outil)=>outil.id !==idOutil);
+      })
+    });
+  }
 }
 
 
