@@ -14,56 +14,56 @@
               <label for="titre" class="control-label">Titre</label>
               <input type="text" id="titre" class="form-control" formControlName="titre"
                      [ngClass]="{'error': submitted && formControls.nom.errors}"/>
-<!--              <div-->
-<!--                *ngIf="(formControls.titre?.invalid && (formControls.titre.dirty || formControls.titre.touched)) || submitted">-->
-<!--                <span class="text-danger" *ngIf="formControls.titre.errors?.required">Please provide Titre</span>-->
-<!--                <span class="text-danger" *ngIf="formControls.titre.errors?.pattern">only provide letters</span>-->
-<!--              </div>-->
+             <div
+                *ngIf="(formControls.titre?.invalid && (formControls.titre.dirty || formControls.titre.touched)) || submitted">
+                <span class="text-danger" *ngIf="formControls.titre.errors?.required">Please provide Titre</span>
+
+              </div>
             </div>
             <div class="col-md-4">
               <label for="type" class="control-label">Type</label>
               <input id="type" class="form-control" formControlName="type" required/>
-<!--              <div-->
-<!--                *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">-->
-<!--                <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>-->
-<!--                <span class="text-danger" *ngIf="formControls.type.errors?.pattern">Only letters are allowed</span>-->
-<!--              </div>-->
+             <div
+               *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">
+               <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>
+
+             </div>
             </div>
             <div class="col-md-4">
               <label for="description" class="control-label">Description</label>
               <input id="description" class="form-control" formControlName="description" required/>
-<!--              <div-->
-<!--                *ngIf="(formControls.type?.invalid && (formControls.type.dirty || formControls.type.touched)) || submitted">-->
-<!--                <span class="text-danger" *ngIf="formControls.type.errors?.required">Please provide type</span>-->
-<!--                <span class="text-danger" *ngIf="formControls.type.errors?.pattern">Only letters are allowed</span>-->
-<!--              </div>-->
+            <div
+              *ngIf="(formControls.description?.invalid && (formControls.description.dirty || formControls.description.touched)) || submitted">
+              <span class="text-danger" *ngIf="formControls.description.errors?.required">Please provide description</span>
+
+            </div>
             </div>
             <div class="col-md-4">
               <label for="date" class="control-label">Date</label>
               <input id="date" formControlName="date" type="date" class="form-control"/>
-<!--              <div-->
-<!--                *ngIf="(formControls.date?.invalid && (formControls.date.dirty || formControls.date.touched)) || submitted">-->
-<!--                <span class="text-danger"-->
-<!--                      *ngIf="formControls.date.errors?.required">Please provide date</span>-->
-<!--              </div>-->
+              <div
+                *ngIf="(formControls.date?.invalid && (formControls.date.dirty || formControls.date.touched)) || submitted">
+                <span class="text-danger"
+                      *ngIf="formControls.date.errors?.required">Please provide date</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label for="sourcepdf" class="control-label">PDF</label>
               <input type="file" id="sourcepdf" class="form-control" (change)="onFileSelect($event,'sourcepdf')" accept="application/pdf"/>
-<!--              <div-->
-<!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
-<!--                <span class="text-danger"-->
-<!--                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>-->
-<!--              </div>-->
+              <div
+                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">
+                <span class="text-danger"
+                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>
+              </div>
             </div>
             <div class="col-md-4">
               <label for="photo" class="control-label">Photo</label>
               <input type="file" id="photo" class="form-control" (change)="onFileSelect($event,'photo')" accept="image/*"/>
-<!--              <div-->
-<!--                *ngIf="(formControls.sourcePdf?.invalid && (formControls.sourcePdf.dirty || formControls.sourcePdf.touched)) || submitted">-->
-<!--                <span class="text-danger"-->
-<!--                      *ngIf="formControls.sourcePdf.errors?.required">Please provide a pdf</span>-->
-<!--              </div>-->
+              <div
+                *ngIf="(formControls.photo?.invalid && (formControls.photo.dirty || formControls.photo.touched)) || submitted">
+                <span class="text-danger"
+                      *ngIf="formControls.photo.errors?.required">Please provide a pdf</span>
+              </div>
             </div>
             <div class="col-md-4" style="margin-top: 0.6rem">
               <label class="control-label">Collaborateurs</label>
