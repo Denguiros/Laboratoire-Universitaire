@@ -27,7 +27,7 @@ export class NavigationComponent implements AfterViewInit {
       this.authService.loggedInUser.subscribe(value => {
         this.loggedInUser = value;
         if (this.loggedInUser != null) {
-          if (this.loggedInUser.photo != null) {
+          if (this.loggedInUser.photo != "") {
             this.memberService.getUserFile(this.loggedInUser.photo).then((photo) => {
               const reader = new FileReader();
               reader.readAsDataURL(photo);
@@ -46,7 +46,7 @@ export class NavigationComponent implements AfterViewInit {
 
     }
     if (this.loggedInUser != null) {
-      if (this.loggedInUser.photo != null) {
+      if (this.loggedInUser.photo != "") {
         this.memberService.getUserFile(this.loggedInUser.photo).then((photo) => {
           const reader = new FileReader();
           reader.readAsDataURL(photo);

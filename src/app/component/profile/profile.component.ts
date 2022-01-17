@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   });
 
   // @ts-ignore
-  member = JSON.parse(localStorage.getItem('user'));
+  member:Member = JSON.parse(localStorage.getItem('user'));
 
   constructor(private memberService: MemberService, private router: Router) {
   }
@@ -73,6 +73,7 @@ export class ProfileComponent implements OnInit {
     memberToSave.id = this.member.id;
     memberToSave.cv = "";
     memberToSave.photo = "";
+    memberToSave.admin = this.member.admin;
     const formData = new FormData();
     formData.append("cv", this.form.value.cv);
     formData.append("photo", this.form.value.photo);

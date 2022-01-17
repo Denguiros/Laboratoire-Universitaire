@@ -64,7 +64,7 @@
                   <h6 class="mb-0">Date de Naissance</h6>
                 </div>
                 <div class="col-sm-9 text-primary">
-                  {{ member.date }}
+                  {{ member.date  | date: 'shortDate' }}
                 </div>
               </div>
               <hr>
@@ -82,7 +82,7 @@
                   <h6 class="mb-0">Date d'Inscription</h6>
                 </div>
                 <div class="col-sm-9 text-primary">
-                  {{ member.dateInscription }}
+                  {{ member.dateInscription  | date: 'shortDate'}}
                 </div>
                 <hr>
               </div>
@@ -168,7 +168,7 @@
               </div>
             </td>
             <td>{{member.diplome}}</td>
-            <td>{{member.dateInscription}}</td>
+            <td>{{member.dateInscription  | date: 'shortDate'}}</td>
           </tr>
           </tbody>
         </table>
@@ -205,7 +205,7 @@
               {{evenement.titre}}
             </td>
             <td>{{evenement.lieu}}</td>
-            <td>{{evenement.date}}</td>
+            <td>{{evenement.date  | date: 'shortDate'}}</td>
           </tr>
           </tbody>
         </table>
@@ -239,7 +239,7 @@
           <tr *ngFor="let outil of outils">
             <td>{{outil.id}}</td>
             <td>{{outil.nom}}</td>
-            <td>{{outil.date}}</td>
+            <td>{{outil.date  | date: 'shortDate'}}</td>
             <td><a href="javascript:void(0)" class="btn btn-outline-primary" id="sourceOutil{{outil.id}}"><span><i class="fa fa-file-archive fa-2x"></i></span></a></td>
             <td><div class="btn-group" ngbDropdown *ngIf="canEdit; else noAction">
               <button type="button" class="btn btn-primary
@@ -313,7 +313,7 @@
               {{publication.description}}
             </p>
             <p>
-              {{publication.date}}
+              {{publication.date | date: 'shortDate'}}
             </p>
             <p>
               {{publication.type}}

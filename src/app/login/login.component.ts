@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
             const newMembre = {
               type: "Etudiant",
               email,
+              cv:"",
+              photo:""
             } as Member
             // tslint:disable-next-line:no-shadowed-variable
             this.memberService.saveMember(newMembre).then((member) => {

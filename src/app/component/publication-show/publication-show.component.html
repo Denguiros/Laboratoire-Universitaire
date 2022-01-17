@@ -5,15 +5,17 @@
         <div class="p-3">
           <h4 class="card-title mb-0">Publication</h4>
         </div>
-        <button class="btn btn-outline-primary" *ngIf="canEdit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</button>
-        <button class="btn btn-outline-danger" *ngIf="canEdit" [swal]="{ title: 'Are you sure?',
-                  text: 'You will not be able to revert this!',
-                  icon: 'warning',
-                  showCancelButton: true,
-                  confirmButtonText: 'Yes, delete it!',
-                  reverseButtons: true,
-                  cancelButtonText: 'No, cancel!', showCancelButton: true }"
-                (confirm)="onRemove(publication.id)">Delete</button>
+        <div>
+          <button class="btn btn-outline-primary" *ngIf="canEdit" routerLink="/component/publication-form/{{publication.id}}/edit">Edit</button>
+          <button class="btn btn-outline-danger" *ngIf="canEdit" [swal]="{ title: 'Are you sure?',
+          text: 'You will not be able to revert this!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          reverseButtons: true,
+          cancelButtonText: 'No, cancel!', showCancelButton: true }"
+          (confirm)="onRemove(publication.id)">Delete</button>
+        </div>
       </div>
       <div class="row gutters-sm">
         <div class="col-md-4 mb-3">

@@ -19,7 +19,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
-
+import { ChartsModule } from 'ng2-charts';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -45,6 +45,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   imports: [
     DataTablesModule,
+    ChartsModule,
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
